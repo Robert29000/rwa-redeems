@@ -1,0 +1,12 @@
+# Chains the collector can read. Logs come from Etherscan API V2 (chain_id), eth_call/receipts from rpc_url.
+# ${VAR} is expanded from the environment (.env).
+chains:
+  ethereum:
+    chain_id: 1
+    rpc_url: "https://lb.drpc.live/ethereum/${DRPC_API_KEY}"
+    confirmations: 12
+    # Known ERC-20s used as redemption payouts (labels + fixed USD price for stablecoins)
+    assets:
+      "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": { symbol: USDC, decimals: 6, usd_price: 1.0 }
+      "0xdac17f958d2ee523a2206206994597c13d831ec7": { symbol: USDT, decimals: 6, usd_price: 1.0 }
+      "0x6c3ea9036406852006290770bedfcaba0e23a0e8": { symbol: PYUSD, decimals: 6, usd_price: 1.0 }

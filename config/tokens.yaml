@@ -1,0 +1,110 @@
+# Tokens to collect. Adding a token on an already supported protocol only needs an entry here.
+#
+# Common fields
+#   symbol, protocol (adapter name), chain (key in chains.yaml), address, decimals
+#   start_block      first block collected (deploy block, or later to skip legacy contract versions)
+#   live_from_block  optional; rows before it are kept but flagged is_pre_launch
+#   contracts        role -> contract or list of contracts {name, address, abi, from_block, price_sources, params}
+#                    (roles are protocol-specific; address defaults to the token address; abi = file in abis/ w/o .json)
+#   price_sources    ordered fallback list used to value each redemption at its block:
+#                      rpc_call  - archive eth_call of a view (default Chainlink latestRoundData) at the event block
+#                      http_nav  - daily NAV from an HTTP JSON API, as-of the event's UTC date
+#                      constant  - fixed price
+#                    if none can price an event, the earliest later price is used and the row is flagged price_is_backfilled
+
+tokens:
+  # ---------------------------------------------------------------- Superstate
+  # Roles: token (OffchainRedeem, SetRedemptionContract), redemption (instant redemption contracts; params.token_out = payout asset)
+  - symbol: USTB
+    protocol: superstate
+    chain: ethereum
+    address: "0x43415eB6ff9DB7E26A15b704e7A3eDCe97d31C4e"
+    decimals: 6
+    start_block: 21932686  # token v4 (OffchainRedeem); legacy v1-v3 Burn events and redemption impl v1 not collected
+    contracts:
+      token: { abi: superstate/SuperstateToken }
+      redemption:
+        - name: redemption_idle
+          address: "0x4c21b7577c8fe8b0b0669165ee7c8f67fa1454cf"
+          abi: superstate/Redemption
+          params: { token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # USDC
+    price_sources:
+      # Superstate continuous NAV/share oracle (Chainlink-compatible; linear extrapolation of the two newest NAV checkpoints).
+      # Verified on-chain: the only oracle ever set on USTB (SetOracle at 21340716; re-set at 25574415 by the 1.2.0 storage
+      # migration) and the immutable CHAINLINK_FEED_ADDRESS of every RedemptionIdle implementation, i.e. the exact
+      # price instant redemptions pay out at. Deployed 21340412 (< start_block), so it covers the whole range.
+      - type: rpc_call
+        name: superstate_oracle_ustb
+        address: "0xe4fa682f94610ccd170680cc3b045d77d9e528a8"
+        decimals: 6
+        from_block: 21340412
+      # Fallbacks, only used if the oracle reverts at a block (it rejects prices > 5 days past the newest checkpoint):
+      # Chainlink daily NAV feed, then the Superstate daily NAV API.
+      - type: rpc_call
+        name: chainlink_ustb_nav
+        address: "0x289B5036cd942e619E1Ee48670F98d214E745AAC"
+        decimals: 6
+        from_block: 20181962
+      - type: http_nav
+        name: superstate_api_ustb
+        url: "https://api.superstate.com/v1/funds/1/nav-daily"
+        date_field: net_asset_value_date
+        date_format: "%m/%d/%Y"
+        price_field: net_asset_value
+
+  - symbol: USCC
+    protocol: superstate
+    chain: ethereum
+    address: "0x14d60e7fdc0d71d8611742720e4c50e7a974020c"
+    decimals: 6
+    start_block: 21932896  # token v4
+    contracts:
+      token: { abi: superstate/SuperstateToken }
+    price_sources:
+      # USCC has no continuous oracle (superstateOracle() == 0x0, no SetOracle events; docs list only Chainlink).
+      # USCC is priced once per market day, so the daily Chainlink NAV feed is its native on-chain price.
+      - type: rpc_call
+        name: chainlink_uscc_nav
+        address: "0xAfFd8F5578E8590665de561bdE9E7BAdb99300d9"
+        decimals: 6
+        from_block: 20930860
+      - type: http_nav
+        name: superstate_api_uscc
+        url: "https://api.superstate.com/v1/funds/2/nav-daily"
+        date_field: net_asset_value_date
+        date_format: "%m/%d/%Y"
+        price_field: net_asset_value
+
+  # ---------------------------------------------------------------- Midas
+  # Roles: vaults (redemption vaults; optional per-vault price_sources when a vault uses its own feed)
+  - symbol: mWIN
+    protocol: midas
+    chain: ethereum
+    address: "0x4E72025984424E52838cf8953E2863eFf036B67A"
+    decimals: 18
+    start_block: 25236860
+    live_from_block: 25637034  # aggregator was a ~$1 placeholder before; first real NAV ($130k) at this block
+    contracts:
+      vaults:
+        - name: main
+          address: "0x605704d7b36d1677a8d242ded68eD505523c7924"  # RedemptionVaultWithSwapper
+          abi: midas/RedemptionVault
+          from_block: 25237114
+        - name: mtoken
+          address: "0x14fECa41FB9541Fd8f61a6bA6304c5b706709fca"  # RedemptionVaultWithMToken
+          abi: midas/RedemptionVault
+          from_block: 25444095
+        - name: dialectic
+          address: "0x078b0858F609Beb26098379fB504763766b6f128"  # RedemptionVaultWithSwapper, own feed
+          abi: midas/RedemptionVault
+          from_block: 25732665
+          price_sources:
+            - type: rpc_call
+              name: midas_mwin_dialectic_aggregator
+              address: "0x17d3C24a956641983377975f0E903D4B87894E2B"
+              decimals: 8
+    price_sources:
+      - type: rpc_call
+        name: midas_mwin_aggregator  # aggregator, not DataFeed: DataFeed reverts when the feed is stale
+        address: "0x1725A66D810C0775f6B3B0FD85646D371dA19517"
+        decimals: 8

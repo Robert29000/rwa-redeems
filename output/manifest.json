@@ -1,0 +1,195 @@
+{
+  "generated_at": "2026-11-12T22:19:47+00:00",
+  "to_blocks": {
+    "ethereum": 26401797
+  },
+  "total_rows": 12345,
+  "tokens": {
+    "ethereum:USTB": {
+      "protocol": "superstate",
+      "chain": "ethereum",
+      "from_block": 21932686,
+      "to_block": 26401797,
+      "rows": 11802,
+      "by_type": {
+        "instant": 10765,
+        "request": 1037
+      },
+      "by_method": {
+        "redeem_v2": 10752,
+        "offchain_redeem": 1037,
+        "redeem_v1": 13
+      },
+      "by_contract": {
+        "redemption_idle": 10765,
+        "token": 1037
+      },
+      "price_sources": {
+        "superstate_oracle_ustb": 11802
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {
+        "redemption_idle": {
+          "n": 10765,
+          "median_abs_rel_diff": 6.127187646143284e-11,
+          "p95_abs_rel_diff": 7.991792214667705e-08,
+          "max_abs_rel_diff": 0.01769620290467233,
+          "share_within_0.1pct": 0.9995355318160706
+        }
+      },
+      "checks": {
+        "offchain_redeem_events": 11802,
+        "instant": 10765,
+        "request": 1037,
+        "contract_events": {
+          "redeem_v2": 10752,
+          "redeem_v1": 13
+        },
+        "instant_without_contract_event": 0,
+        "contract_events_without_token_event": 0,
+        "set_redemption_contract": [
+          {
+            "block": 21932821,
+            "old": "0x0000000000000000000000000000000000000000",
+            "new": "0x4c21b7577c8fe8b0b0669165ee7c8f67fa1454cf"
+          },
+          {
+            "block": 25574415,
+            "old": "0x0000000000000000000000000000000000000000",
+            "new": "0x4c21b7577c8fe8b0b0669165ee7c8f67fa1454cf"
+          }
+        ],
+        "unconfigured_redemption_contracts": []
+      }
+    },
+    "ethereum:USCC": {
+      "protocol": "superstate",
+      "chain": "ethereum",
+      "from_block": 21932896,
+      "to_block": 26401797,
+      "rows": 492,
+      "by_type": {
+        "request": 492
+      },
+      "by_method": {
+        "offchain_redeem": 492
+      },
+      "by_contract": {
+        "token": 492
+      },
+      "price_sources": {
+        "chainlink_uscc_nav": 492
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {},
+      "checks": {
+        "offchain_redeem_events": 492,
+        "instant": 0,
+        "request": 492,
+        "contract_events": {},
+        "instant_without_contract_event": 0,
+        "contract_events_without_token_event": 0,
+        "set_redemption_contract": [],
+        "unconfigured_redemption_contracts": []
+      }
+    },
+    "ethereum:mWIN": {
+      "protocol": "midas",
+      "chain": "ethereum",
+      "from_block": 25236860,
+      "to_block": 26401797,
+      "rows": 51,
+      "by_type": {
+        "request": 36,
+        "instant": 15
+      },
+      "by_method": {
+        "redeem_request": 36,
+        "redeem_instant": 15
+      },
+      "by_contract": {
+        "main": 41,
+        "dialectic": 10
+      },
+      "price_sources": {
+        "midas_mwin_aggregator": 41,
+        "midas_mwin_dialectic_aggregator": 10
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 6,
+      "price_consistency": {
+        "dialectic": {
+          "n": 10,
+          "median_abs_rel_diff": 2.087607864353913e-12,
+          "p95_abs_rel_diff": 4.3764766255449606e-09,
+          "max_abs_rel_diff": 7.34735516871865e-09,
+          "share_within_0.1pct": 1.0
+        },
+        "main": {
+          "n": 5,
+          "median_abs_rel_diff": 3.2462921240039577e-13,
+          "p95_abs_rel_diff": 1.4519940805257645e-12,
+          "max_abs_rel_diff": 1.7195134205394424e-12,
+          "share_within_0.1pct": 1.0
+        }
+      },
+      "checks": {
+        "vaults": {
+          "main": {
+            "address": "0x605704d7b36d1677a8d242ded68ed505523c7924",
+            "events": {
+              "RedeemRequest": 36,
+              "RedeemInstant": 5
+            },
+            "payment_tokens": {
+              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+                "data_feed": "0x3aac6fd73fa4e16ec683bd4aaf5ec89bb2c0edc2",
+                "stable": true,
+                "removed": false
+              },
+              "0x6c3ea9036406852006290770bedfcaba0e23a0e8": {
+                "data_feed": "0x30f7ea8499557d77a9a6974aa3cad2e64fbd61b8",
+                "stable": true,
+                "removed": false
+              }
+            }
+          },
+          "mtoken": {
+            "address": "0x14feca41fb9541fd8f61a6ba6304c5b706709fca",
+            "events": {},
+            "payment_tokens": {
+              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+                "data_feed": "0x3aac6fd73fa4e16ec683bd4aaf5ec89bb2c0edc2",
+                "stable": true,
+                "removed": false
+              }
+            }
+          },
+          "dialectic": {
+            "address": "0x078b0858f609beb26098379fb504763766b6f128",
+            "events": {
+              "RedeemInstant": 10
+            },
+            "payment_tokens": {
+              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+                "data_feed": "0x3aac6fd73fa4e16ec683bd4aaf5ec89bb2c0edc2",
+                "stable": true,
+                "removed": false
+              },
+              "0x6c3ea9036406852006290770bedfcaba0e23a0e8": {
+                "data_feed": "0x30f7ea8499557d77a9a6974aa3cad2e64fbd61b8",
+                "stable": true,
+                "removed": false
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

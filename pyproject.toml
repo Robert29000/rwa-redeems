@@ -1,0 +1,32 @@
+[project]
+name = "rwa-redeems"
+version = "0.1.0"
+description = "Collect on-chain redemption events of RWA tokens and value them in USD"
+authors = [
+    { name = "Robert29000", email = "robert290001@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "httpx>=0.28.1",
+    "pandas>=3.1.1",
+    "pydantic>=2.14.3",
+    "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
+    "tenacity>=9.2.1",
+    "web3>=8.0.0",
+]
+
+[project.scripts]
+rwa-redeems = "rwa_redeems.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.17,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

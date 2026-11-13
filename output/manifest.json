@@ -1,50 +1,50 @@
 {
-  "generated_at": "2026-11-12T22:19:47+00:00",
+  "generated_at": "2026-11-12T22:48:56+00:00",
   "to_blocks": {
-    "ethereum": 26401797
+    "ethereum": 26401929
   },
-  "total_rows": 12345,
+  "total_rows": 12346,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26401797,
-      "rows": 11802,
+      "to_block": 26401929,
+      "rows": 11803,
       "by_type": {
-        "instant": 10765,
+        "instant": 10766,
         "request": 1037
       },
       "by_method": {
-        "redeem_v2": 10752,
+        "redeem_v2": 10753,
         "offchain_redeem": 1037,
         "redeem_v1": 13
       },
       "by_contract": {
-        "redemption_idle": 10765,
+        "redemption_idle": 10766,
         "token": 1037
       },
       "price_sources": {
-        "superstate_oracle_ustb": 11802
+        "superstate_oracle_ustb": 11803
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {
         "redemption_idle": {
-          "n": 10765,
-          "median_abs_rel_diff": 6.127187646143284e-11,
-          "p95_abs_rel_diff": 7.991792214667705e-08,
+          "n": 10766,
+          "median_abs_rel_diff": 6.131534169284691e-11,
+          "p95_abs_rel_diff": 7.990350556208448e-08,
           "max_abs_rel_diff": 0.01769620290467233,
-          "share_within_0.1pct": 0.9995355318160706
+          "share_within_0.1pct": 0.9995355749582018
         }
       },
       "checks": {
-        "offchain_redeem_events": 11802,
-        "instant": 10765,
+        "offchain_redeem_events": 11803,
+        "instant": 10766,
         "request": 1037,
         "contract_events": {
-          "redeem_v2": 10752,
+          "redeem_v2": 10753,
           "redeem_v1": 13
         },
         "instant_without_contract_event": 0,
@@ -68,7 +68,7 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26401797,
+      "to_block": 26401929,
       "rows": 492,
       "by_type": {
         "request": 492
@@ -101,7 +101,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26401797,
+      "to_block": 26401929,
       "rows": 51,
       "by_type": {
         "request": 36,

@@ -1,50 +1,50 @@
 {
-  "generated_at": "2026-11-12T22:48:56+00:00",
+  "generated_at": "2026-11-14T19:46:05+00:00",
   "to_blocks": {
-    "ethereum": 26401929
+    "ethereum": 26415389
   },
-  "total_rows": 12346,
+  "total_rows": 13943,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26401929,
-      "rows": 11803,
+      "to_block": 26415389,
+      "rows": 11917,
       "by_type": {
-        "instant": 10766,
-        "request": 1037
+        "instant": 10870,
+        "request": 1047
       },
       "by_method": {
-        "redeem_v2": 10753,
-        "offchain_redeem": 1037,
+        "redeem_v2": 10857,
+        "offchain_redeem": 1047,
         "redeem_v1": 13
       },
       "by_contract": {
-        "redemption_idle": 10766,
-        "token": 1037
+        "redemption_idle": 10870,
+        "token": 1047
       },
       "price_sources": {
-        "superstate_oracle_ustb": 11803
+        "superstate_oracle_ustb": 11917
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {
         "redemption_idle": {
-          "n": 10766,
-          "median_abs_rel_diff": 6.131534169284691e-11,
-          "p95_abs_rel_diff": 7.990350556208448e-08,
+          "n": 10870,
+          "median_abs_rel_diff": 6.105127514643982e-11,
+          "p95_abs_rel_diff": 7.938603527879434e-08,
           "max_abs_rel_diff": 0.01769620290467233,
-          "share_within_0.1pct": 0.9995355749582018
+          "share_within_0.1pct": 0.999540018399264
         }
       },
       "checks": {
-        "offchain_redeem_events": 11803,
-        "instant": 10766,
-        "request": 1037,
+        "offchain_redeem_events": 11917,
+        "instant": 10870,
+        "request": 1047,
         "contract_events": {
-          "redeem_v2": 10753,
+          "redeem_v2": 10857,
           "redeem_v1": 13
         },
         "instant_without_contract_event": 0,
@@ -68,7 +68,7 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26401929,
+      "to_block": 26415389,
       "rows": 492,
       "by_type": {
         "request": 492
@@ -101,7 +101,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26401929,
+      "to_block": 26415389,
       "rows": 51,
       "by_type": {
         "request": 36,
@@ -188,6 +188,164 @@
               }
             }
           }
+        }
+      }
+    },
+    "ethereum:BUIDL": {
+      "protocol": "securitize",
+      "chain": "ethereum",
+      "from_block": 19343293,
+      "to_block": 26415389,
+      "rows": 1483,
+      "by_type": {
+        "instant": 1310,
+        "request": 173
+      },
+      "by_method": {
+        "settlement_completed": 1298,
+        "transfer_to_redemption_wallet": 173,
+        "redemption_completed": 12
+      },
+      "by_contract": {
+        "redemption_usdc": 1297,
+        "token": 173,
+        "offramp_rlusd": 12,
+        "redemption_usdtb": 1
+      },
+      "price_sources": {
+        "buidl_usd_1": 1483
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {
+        "offramp_rlusd": {
+          "n": 12,
+          "median_abs_rel_diff": 0.0,
+          "p95_abs_rel_diff": 0.0,
+          "max_abs_rel_diff": 0.0,
+          "share_within_0.1pct": 1.0
+        },
+        "redemption_usdc": {
+          "n": 1297,
+          "median_abs_rel_diff": 0.0,
+          "p95_abs_rel_diff": 0.0,
+          "max_abs_rel_diff": 0.0,
+          "share_within_0.1pct": 1.0
+        },
+        "redemption_usdtb": {
+          "n": 1,
+          "median_abs_rel_diff": 0.0,
+          "p95_abs_rel_diff": 0.0,
+          "max_abs_rel_diff": 0.0,
+          "share_within_0.1pct": 1.0
+        }
+      },
+      "checks": {
+        "redemption_wallet": {
+          "address": "0x8780dd016171b91e4df47075da0a947959c34200",
+          "transfers_in": 222,
+          "token_in": 1585239545.572351,
+          "burns": 179,
+          "token_burned": 1585239545.572351
+        },
+        "request": 173,
+        "excluded_mints": 0,
+        "excluded_liquidity_sweeps": {
+          "0x0cb4a346edd1b0c1f7b3ee8b1879630a1cc0b78b": {
+            "sweeps": 4,
+            "token_amount": 8794341.61
+          },
+          "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582": {
+            "sweeps": 1,
+            "token_amount": 25.0
+          },
+          "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e": {
+            "sweeps": 44,
+            "token_amount": 497383253.08
+          }
+        },
+        "instant": 1310,
+        "instant_untraced": 0,
+        "liquidity_wallets": {
+          "0x0cb4a346edd1b0c1f7b3ee8b1879630a1cc0b78b": {
+            "instant_redemptions": 12,
+            "instant_token_in": 8650800.0,
+            "settlement_recipient": false,
+            "sweeps": 4,
+            "token_amount": 8794341.61
+          },
+          "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582": {
+            "instant_redemptions": 1,
+            "instant_token_in": 25.0,
+            "settlement_recipient": true,
+            "sweeps": 1,
+            "token_amount": 25.0
+          },
+          "0xc704beced0c5ac8844ca0c42738a5efb932e16bb": {
+            "instant_redemptions": 1,
+            "instant_token_in": 1.0,
+            "settlement_recipient": true,
+            "sweeps": 0,
+            "token_amount": 0.0
+          },
+          "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e": {
+            "instant_redemptions": 1296,
+            "instant_token_in": 488729510.264079,
+            "settlement_recipient": true,
+            "sweeps": 44,
+            "token_amount": 497383253.08
+          }
+        },
+        "settlements": [
+          {
+            "redemption": "0x31d3f59ad4aac0eee2247c65ebe8bf6e9e470a53",
+            "settlement": "0x57dd4e92712b0fbc8d3f3e3645eebcf2600acef0",
+            "set_at_block": 19364995,
+            "events": 1297,
+            "recipient_updates": [
+              {
+                "block": 19373452,
+                "old": "0x0000000000000000000000000000000000000000",
+                "new": "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582"
+              },
+              {
+                "block": 19379717,
+                "old": "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582",
+                "new": "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e"
+              },
+              {
+                "block": 19384713,
+                "old": "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e",
+                "new": "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582"
+              },
+              {
+                "block": 19427674,
+                "old": "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582",
+                "new": "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e"
+              }
+            ],
+            "recipient_now": "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e",
+            "recipients": [
+              "0x9d9affc9b217ef2276d3d1781dbda02fcb1c4582",
+              "0xcf64a444c3aaa68d7bcbf353c7f3f654b139729e"
+            ]
+          },
+          {
+            "redemption": "0x4580d3c5fff079bde60af9e98b62d4fb031ee0a0",
+            "settlement": "0x6c97c9754880e569c8f098b3cc654089f7ac5fbb",
+            "set_at_block": 22442054,
+            "events": 1,
+            "recipient_updates": [],
+            "recipient_now": "0xc704beced0c5ac8844ca0c42738a5efb932e16bb",
+            "recipients": [
+              "0xc704beced0c5ac8844ca0c42738a5efb932e16bb"
+            ]
+          }
+        ],
+        "offramps": {
+          "offramp_rlusd": 12,
+          "offramp_usdc_elp": 0
         }
       }
     }

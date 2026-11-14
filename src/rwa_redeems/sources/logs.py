@@ -1,4 +1,4 @@
-"""Log sources: anything that returns all logs for (chain, address, topic0) in a block range."""
+"""Log sources: anything that returns all logs for (chain, address, topic0[, indexed topics]) in a block range."""
 
 from __future__ import annotations
 
@@ -14,9 +14,19 @@ from rwa_redeems.sources.ratelimit import RateLimiter
 log = logging.getLogger(__name__)
 
 
+# Optional filter on indexed event arguments: topic position (1..3) -> 32-byte hex topic value.
+TopicFilter = dict[int, str]
+
+
 class LogSource(Protocol):
     def get_logs(
-        self, chain_id: int, address: str, topic0: str, from_block: int, to_block: int
+        self,
+        chain_id: int,
+        address: str,
+        topic0: str,
+        from_block: int,
+        to_block: int,
+        topics: TopicFilter | None = None,
     ) -> list[RawLog]: ...
 
 
@@ -81,21 +91,30 @@ class EtherscanLogSource:
         raise EtherscanError(f"Etherscan error for {params.get('address')}: {msg}")
 
     def _page(
-        self, chain_id: int, address: str, topic0: str, from_block: int, to_block: int, page: int
+        self,
+        chain_id: int,
+        address: str,
+        topic0: str,
+        from_block: int,
+        to_block: int,
+        page: int,
+        topics: TopicFilter | None = None,
     ) -> list[RawLog]:
-        rows = self._get(
-            {
-                "chainid": chain_id,
-                "module": "logs",
-                "action": "getLogs",
-                "address": address,
-                "topic0": topic0,
-                "fromBlock": from_block,
-                "toBlock": to_block,
-                "page": page,
-                "offset": self.PAGE_SIZE,
-            }
-        )
+        params: dict[str, Any] = {
+            "chainid": chain_id,
+            "module": "logs",
+            "action": "getLogs",
+            "address": address,
+            "topic0": topic0,
+            "fromBlock": from_block,
+            "toBlock": to_block,
+            "page": page,
+            "offset": self.PAGE_SIZE,
+        }
+        for pos, value in (topics or {}).items():
+            params[f"topic{pos}"] = value
+            params[f"topic0_{pos}_opr"] = "and"
+        rows = self._get(params)
         return [
             RawLog(
                 address=r["address"].lower(),
@@ -111,12 +130,18 @@ class EtherscanLogSource:
         ]
 
     def get_logs(
-        self, chain_id: int, address: str, topic0: str, from_block: int, to_block: int
+        self,
+        chain_id: int,
+        address: str,
+        topic0: str,
+        from_block: int,
+        to_block: int,
+        topics: TopicFilter | None = None,
     ) -> list[RawLog]:
         seen: dict[tuple[str, int], RawLog] = {}
         cursor = from_block
         while cursor <= to_block:
-            rows = self._page(chain_id, address, topic0, cursor, to_block, page=1)
+            rows = self._page(chain_id, address, topic0, cursor, to_block, page=1, topics=topics)
             if not rows:
                 break
             new = 0
@@ -127,7 +152,7 @@ class EtherscanLogSource:
             first, last = rows[0].block_number, rows[-1].block_number
             full = len(rows) >= self.PAGE_SIZE - self.SHORT_PAGE_SLACK
             if full and first == last:
-                self._drain_block(chain_id, address, topic0, last, seen)
+                self._drain_block(chain_id, address, topic0, last, seen, topics)
                 cursor = last + 1
             elif full and new:
                 cursor = last  # last block may be partially returned
@@ -137,10 +162,16 @@ class EtherscanLogSource:
         return sorted(seen.values(), key=lambda r: (r.block_number, r.log_index))
 
     def _drain_block(
-        self, chain_id: int, address: str, topic0: str, block: int, seen: dict[tuple[str, int], RawLog]
+        self,
+        chain_id: int,
+        address: str,
+        topic0: str,
+        block: int,
+        seen: dict[tuple[str, int], RawLog],
+        topics: TopicFilter | None = None,
     ) -> None:
         for page in range(2, self.MAX_PAGES + 1):
-            rows = self._page(chain_id, address, topic0, block, block, page=page)
+            rows = self._page(chain_id, address, topic0, block, block, page=page, topics=topics)
             for r in rows:
                 seen.setdefault(r.key, r)
             if len(rows) < self.PAGE_SIZE:

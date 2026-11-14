@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Iterable
+from typing import Any
 
 import pandas as pd
 
@@ -28,9 +29,12 @@ class EventFetcher:
         event_names: Iterable[str],
         from_block: int,
         to_block: int,
+        where: dict[str, Any] | None = None,
     ) -> pd.DataFrame:
         """Decoded logs of the given events emitted by `address`, one row per log.
 
+        `where` filters on indexed arguments at the source (e.g. `{"to": wallet}` for ERC-20 Transfer); every event
+        in `event_names` must have those indexed arguments.
         Columns: META_COLUMNS + the union of decoded argument names (addresses lowercase, ints unbounded Python ints).
         """
         rows: list[dict] = []
@@ -41,7 +45,8 @@ class EventFetcher:
             if clash:
                 raise ValueError(f"event {name} argument names clash with meta columns: {clash}")
             arg_columns += [a for a in spec.arg_names if a not in arg_columns]
-            logs = self._source.get_logs(chain_id, address, spec.topic0, from_block, to_block)
+            topics = spec.topic_filter(where) if where else None
+            logs = self._source.get_logs(chain_id, address, spec.topic0, from_block, to_block, topics)
             log.info("  %s.%s: %d logs", abi_name, name, len(logs))
             for raw in logs:
                 rows.append(

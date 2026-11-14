@@ -31,23 +31,39 @@ class AdapterContext:
     prices: PriceSourceFactory
     cache_dir: Path
 
-    def fetch(self, token: TokenConfig, contract: ContractConfig, events: list[str]) -> pd.DataFrame:
+    def fetch(
+        self, token: TokenConfig, contract: ContractConfig, events: list[str], where: dict[str, Any] | None = None
+    ) -> pd.DataFrame:
         assert contract.address is not None
         return self.fetcher.fetch(
-            self.chain.chain_id, contract.address, contract.abi, events, token.from_block(contract), self.to_block
+            self.chain.chain_id,
+            contract.address,
+            contract.abi,
+            events,
+            token.from_block(contract),
+            self.to_block,
+            where,
         )
 
     def asset(self, address: str | None) -> AssetConfig | None:
         return self.chain.assets.get(address.lower()) if address else None
 
-    def receipt_logs(self, tx_hashes: list[str]) -> dict[str, list[list[str]]]:
-        """Per tx: [[emitter, topic0, topic1, ...], ...] (cached; receipts are immutable once confirmed)."""
-        cache = JsonlKV(self.cache_dir / "receipts" / f"{self.chain_key}.jsonl")
+    def receipt_logs(self, tx_hashes: list[str]) -> dict[str, list[dict[str, Any]]]:
+        """Per tx: [{"address", "topics", "data"}, ...] in log order, lowercase hex (cached; receipts are immutable
+        once confirmed)."""
+        cache = JsonlKV(self.cache_dir / "receipts" / f"{self.chain_key}.logs.jsonl")
         missing = [h for h in dict.fromkeys(tx_hashes) if h not in cache]
 
-        def fetch(h: str) -> tuple[str, list[list[str]]]:
+        def fetch(h: str) -> tuple[str, list[dict[str, Any]]]:
             receipt = self.rpc.get_receipt(h)
-            return h, [[lg["address"].lower(), *(t.lower() for t in lg["topics"])] for lg in receipt["logs"]]
+            return h, [
+                {
+                    "address": lg["address"].lower(),
+                    "topics": [t.lower() for t in lg["topics"]],
+                    "data": lg["data"].lower(),
+                }
+                for lg in receipt["logs"]
+            ]
 
         cache.put_many(dict(self.rpc.map(fetch, missing)))
         return {h: cache.get(h) for h in tx_hashes}

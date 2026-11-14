@@ -1,6 +1,7 @@
 """On-disk caches so reruns only fetch new data.
 
-- `CachedLogSource`: wraps any LogSource; stores logs per (chain, address, topic0) as JSONL plus the scanned block range.
+- `CachedLogSource`: wraps any LogSource; stores logs per (chain, address, topic0[, topic filter]) as JSONL plus the
+  scanned block range.
 - `JsonlKV`: append-only key/value store for immutable historical lookups (oracle answers at a block, receipts).
 """
 
@@ -12,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 from rwa_redeems.abi import RawLog
-from rwa_redeems.sources.logs import LogSource
+from rwa_redeems.sources.logs import LogSource, TopicFilter
 
 
 class CachedLogSource:
@@ -20,23 +21,33 @@ class CachedLogSource:
         self._inner = inner
         self._dir = cache_dir
 
-    def _paths(self, chain_id: int, address: str, topic0: str) -> tuple[Path, Path]:
-        base = self._dir / str(chain_id) / address.lower() / topic0.lower()
+    def _paths(
+        self, chain_id: int, address: str, topic0: str, topics: TopicFilter | None
+    ) -> tuple[Path, Path]:
+        # a filtered query is a different (smaller) log set, so it gets its own file: <topic0>__t2_<value>...
+        name = topic0.lower() + "".join(f"__t{pos}_{value.lower()}" for pos, value in sorted((topics or {}).items()))
+        base = self._dir / str(chain_id) / address.lower() / name
         return base.with_suffix(".jsonl"), base.with_suffix(".meta.json")
 
     def get_logs(
-        self, chain_id: int, address: str, topic0: str, from_block: int, to_block: int
+        self,
+        chain_id: int,
+        address: str,
+        topic0: str,
+        from_block: int,
+        to_block: int,
+        topics: TopicFilter | None = None,
     ) -> list[RawLog]:
-        data_path, meta_path = self._paths(chain_id, address, topic0)
+        data_path, meta_path = self._paths(chain_id, address, topic0, topics)
         meta = json.loads(meta_path.read_text()) if meta_path.exists() else None
 
         if meta is None or meta["from_block"] > from_block:
-            logs = self._inner.get_logs(chain_id, address, topic0, from_block, to_block)
+            logs = self._inner.get_logs(chain_id, address, topic0, from_block, to_block, topics)
             data_path.parent.mkdir(parents=True, exist_ok=True)
             data_path.write_text("".join(json.dumps(r.to_json()) + "\n" for r in logs))
             self._write_meta(meta_path, from_block, to_block)
         elif meta["to_block"] < to_block:
-            new = self._inner.get_logs(chain_id, address, topic0, meta["to_block"] + 1, to_block)
+            new = self._inner.get_logs(chain_id, address, topic0, meta["to_block"] + 1, to_block, topics)
             with data_path.open("a") as f:
                 f.writelines(json.dumps(r.to_json()) + "\n" for r in new)
             self._write_meta(meta_path, meta["from_block"], to_block)

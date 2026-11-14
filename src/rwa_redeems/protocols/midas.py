@@ -130,7 +130,10 @@ class MidasAdapter(ProtocolAdapter):
         def used_fallback(row) -> bool:
             vault_topic = "0x" + "0" * 24 + row.contract[2:]
             return any(
-                lg[0] not in vaults and len(lg) > 2 and lg[1] == topic0 and lg[2] == vault_topic
+                lg["address"] not in vaults
+                and len(lg["topics"]) > 1
+                and lg["topics"][0] == topic0
+                and lg["topics"][1] == vault_topic
                 for lg in receipts[row.tx_hash]
             )
 

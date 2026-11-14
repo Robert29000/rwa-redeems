@@ -82,7 +82,18 @@ class EventSpec:
         self.name: str = abi["name"]
         self.topic0 = "0x" + event_abi_to_log_topic(abi).hex()
         self.arg_names: list[str] = [i["name"] for i in abi["inputs"]]
+        self._indexed = [i for i in abi["inputs"] if i.get("indexed")]
         self._event = Web3().eth.contract(abi=[abi]).events[self.name]()
+
+    def topic_filter(self, where: dict[str, Any]) -> dict[int, str]:
+        """Topic filter (position 1..3 -> 32-byte hex) for exact matches on indexed static arguments."""
+        out: dict[int, str] = {}
+        for name, value in where.items():
+            pos = next((n for n, i in enumerate(self._indexed, start=1) if i["name"] == name), None)
+            if pos is None:
+                raise KeyError(f"event {self.name}: {name!r} is not an indexed argument")
+            out[pos] = "0x" + eth_abi.encode([self._indexed[pos - 1]["type"]], [value]).hex()
+        return out
 
     def decode(self, log: RawLog) -> dict[str, Any]:
         receipt_log = {

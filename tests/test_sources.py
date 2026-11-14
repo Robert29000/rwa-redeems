@@ -86,7 +86,7 @@ class CountingSource:
     def __init__(self, logs):
         self.logs, self.calls = logs, []
 
-    def get_logs(self, chain_id, address, topic0, from_block, to_block):
+    def get_logs(self, chain_id, address, topic0, from_block, to_block, topics=None):
         self.calls.append((from_block, to_block))
         return [lg for lg in self.logs if from_block <= lg.block_number <= to_block]
 
@@ -122,3 +122,25 @@ def test_rpc_revert_and_empty_return_none():
     assert rpc.eth_call("0x" + "a" * 40, "0x", 1) is None
     assert rpc.eth_call("0x" + "a" * 40, "0x", 2) is None
     assert rpc.eth_call("0x" + "a" * 40, "0x", 3)[-1] == 7
+
+
+def test_topic_filter_is_sent_and_cached_separately(tmp_path):
+    server = FakeEtherscan([_log(5, 0)])
+    to = "0x" + "0" * 24 + "b" * 40
+    assert len(_source(server).get_logs(1, "0x" + "a" * 40, "0x" + "1" * 64, 0, 10, {2: to})) == 1
+    assert server.requests[0]["topic2"] == to and server.requests[0]["topic0_2_opr"] == "and"
+
+    inner = CountingSource([_raw(10)])
+    cached = CachedLogSource(inner, tmp_path)
+    args = (1, "0x" + "a" * 40, "0x" + "1" * 64)
+    cached.get_logs(*args, 0, 100)
+    cached.get_logs(*args, 0, 100, {2: to})
+    assert len(inner.calls) == 2  # the filtered query does not reuse the unfiltered cache file
+
+
+def test_abi_topic_filter(abis):
+    spec = abis.event("superstate/SuperstateToken", "OffchainRedeem")
+    addr = "0x" + "c" * 40
+    assert spec.topic_filter({"src": addr}) == {2: "0x" + "0" * 24 + "c" * 40}
+    with pytest.raises(KeyError):
+        spec.topic_filter({"amount": 1})

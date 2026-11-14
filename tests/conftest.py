@@ -22,23 +22,31 @@ class FixtureLogSource:
         self.logs = logs
         self.calls: list[tuple] = []
 
-    def get_logs(self, chain_id, address, topic0, from_block, to_block):
+    def get_logs(self, chain_id, address, topic0, from_block, to_block, topics=None):
         self.calls.append((chain_id, address, topic0, from_block, to_block))
         return [
             lg
             for lg in self.logs
-            if lg.address == address and lg.topics[0] == topic0 and from_block <= lg.block_number <= to_block
+            if lg.address == address
+            and lg.topics[0] == topic0
+            and from_block <= lg.block_number <= to_block
+            and all(len(lg.topics) > pos and lg.topics[pos] == value for pos, value in (topics or {}).items())
         ]
 
 
 class FakeRpc:
-    def __init__(self, receipts: dict[str, list[list[str]]] | None = None):
+    def __init__(self, receipts: dict[str, list[dict]] | None = None, calls: dict[tuple[str, str], str] | None = None):
         self.receipts = receipts or {}
+        self.calls = calls or {}  # (to, calldata) -> hex return data; anything else reverts
         self.receipt_calls: list[str] = []
 
     def get_receipt(self, tx_hash):
         self.receipt_calls.append(tx_hash)
-        return {"logs": [{"address": lg[0], "topics": lg[1:]} for lg in self.receipts[tx_hash]]}
+        return {"logs": self.receipts[tx_hash]}
+
+    def eth_call(self, to, data, block):
+        result = self.calls.get((to, data))
+        return bytes.fromhex(result[2:]) if result else None
 
     def map(self, fn, items):
         return [fn(x) for x in items]
@@ -66,13 +74,13 @@ def fixture_receipts() -> dict:
 
 @pytest.fixture
 def make_ctx(config, abis, tmp_path, fixture_receipts):
-    def make(logs: list[RawLog], to_block: int = 27_000_000) -> AdapterContext:
+    def make(logs: list[RawLog], to_block: int = 27_000_000, calls: dict | None = None) -> AdapterContext:
         return AdapterContext(
             chain_key="ethereum",
             chain=config.chains["ethereum"],
             to_block=to_block,
             fetcher=EventFetcher(FixtureLogSource(logs), abis),
-            rpc=FakeRpc(fixture_receipts),  # type: ignore[arg-type]
+            rpc=FakeRpc(fixture_receipts, calls),  # type: ignore[arg-type]
             prices=PriceSourceFactory({}),
             cache_dir=tmp_path,
         )

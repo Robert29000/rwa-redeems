@@ -108,3 +108,43 @@ tokens:
         name: midas_mwin_aggregator  # aggregator, not DataFeed: DataFeed reverts when the feed is stale
         address: "0x1725A66D810C0775f6B3B0FD85646D371dA19517"
         decimals: 8
+
+  # ---------------------------------------------------------------- Securitize
+  # Roles: token (DSToken; params.redemption_wallet = the wallet holders transfer to for a request redemption),
+  #        redemption (Redemption.sol instant contracts; settlements are discovered from SettlementUpdated;
+  #                    params.token_out = payout asset), offramps (SecuritizeOffRamp instant contracts)
+  - symbol: BUIDL
+    protocol: securitize
+    chain: ethereum
+    address: "0x7712c34205737192402172409a8f7ccef8aa2aec"  # Securitize Proxy -> DSToken 0x603bb690...83b2
+    decimals: 6
+    start_block: 19343293  # token deploy
+    contracts:
+      token:
+        abi: securitize/DSToken
+        params: { redemption_wallet: "0x8780Dd016171B91E4Df47075dA0a947959C34200" }  # shared with BUIDL-I etc.
+      redemption:
+        - name: redemption_usdc  # legacy; its settlement 0x57dd... is paused since block 22439269
+          address: "0x31D3F59Ad4aAC0eeE2247c65EBE8Bf6E9E470a53"
+          abi: securitize/Redemption
+          from_block: 19364633
+          params: { token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # USDC
+        - name: redemption_usdtb
+          address: "0x4580D3c5fFF079BDe60Af9e98B62d4FB031eE0a0"
+          abi: securitize/Redemption
+          from_block: 22442051
+          params: { token_out: "0xc139190f447e929f090edeb554d95abb8b18ac1c" }  # USDtb
+      offramps:
+        - name: offramp_rlusd
+          address: "0x04FB23ef3cb3eB559D0ba096FbFda90241fF8e66"  # SecuritizeOffRamp (ERC1967 proxy)
+          abi: securitize/SecuritizeOffRamp
+          from_block: 23233078
+        - name: offramp_usdc_elp  # ExternalLiquidityProviderOffRamp; not in Securitize's public feed
+          address: "0x6a1705b528c35d479f45418ef77007b28e02b09f"
+          abi: securitize/SecuritizeOffRamp
+          from_block: 25574754
+    price_sources:
+      # BUIDL is a $1.00 stable-NAV fund; every instant path pays out 1:1 (RedStone NAV feed has always read 1.00)
+      - type: constant
+        name: buidl_usd_1
+        value: 1.0

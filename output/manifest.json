@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-17T21:58:32+00:00",
+  "generated_at": "2026-11-17T22:51:44+00:00",
   "to_blocks": {
-    "ethereum": 26437591
+    "ethereum": 26437857
   },
-  "total_rows": 19562,
+  "total_rows": 20561,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26437591,
+      "to_block": 26437857,
       "rows": 12035,
       "by_type": {
         "instant": 10981,
@@ -68,7 +68,7 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26437591,
+      "to_block": 26437857,
       "rows": 496,
       "by_type": {
         "request": 496
@@ -101,7 +101,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 20826541,
-      "to_block": 26437591,
+      "to_block": 26437857,
       "rows": 5497,
       "by_type": {
         "instant": 5398,
@@ -174,7 +174,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26437591,
+      "to_block": 26437857,
       "rows": 51,
       "by_type": {
         "request": 36,
@@ -268,7 +268,7 @@
       "protocol": "securitize",
       "chain": "ethereum",
       "from_block": 19343293,
-      "to_block": 26437591,
+      "to_block": 26437857,
       "rows": 1483,
       "by_type": {
         "instant": 1310,
@@ -419,6 +419,68 @@
         "offramps": {
           "offramp_rlusd": 12,
           "offramp_usdc_elp": 0
+        }
+      }
+    },
+    "ethereum:USDY": {
+      "protocol": "ondo",
+      "chain": "ethereum",
+      "from_block": 17672244,
+      "to_block": 26437857,
+      "rows": 999,
+      "by_type": {
+        "instant": 918,
+        "request": 81
+      },
+      "by_method": {
+        "redeem": 904,
+        "request_redemption_serviced_offchain": 81,
+        "redeem_rebasing_usdy": 14
+      },
+      "by_contract": {
+        "instant_manager": 918,
+        "usdy_manager": 81
+      },
+      "price_sources": {
+        "usdy_oracle_wrapper": 932,
+        "usdy_rwa_dynamic_oracle": 66,
+        "usdy_pricer": 1
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {
+        "instant_manager": {
+          "n": 918,
+          "median_abs_rel_diff": 1.1218692641534744e-11,
+          "p95_abs_rel_diff": 7.9960577770155e-08,
+          "max_abs_rel_diff": 8.561178393984292e-07,
+          "share_within_0.1pct": 1.0
+        }
+      },
+      "checks": {
+        "not_collected": "USDY transfers to Ondo-controlled Safes that are later burned (undocumented path); request rows are incomplete",
+        "instant_managers": {
+          "instant_manager": {
+            "address": "0xa42613c243b67bf6194ac327795b926b4b491f15",
+            "events": {
+              "Redemption": 918,
+              "InstantRedemptionRebasingUSDY": 14
+            },
+            "rebasing_unmatched": 0,
+            "rebasing_rusdy_in": 1050979.8183452827,
+            "rebasing_usdy_in": 912460.668087251,
+            "redemption_usd_value": 104584138.10689116,
+            "fees_usd": 0.0
+          }
+        },
+        "request_managers": {
+          "usdy_manager": {
+            "address": "0x25a103a1d6aec5967c1a4fe2039cdc514886b97e",
+            "events": {
+              "RedemptionRequestedServicedOffChain": 81
+            }
+          }
         }
       }
     }

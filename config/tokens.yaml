@@ -185,3 +185,53 @@ tokens:
       - type: constant
         name: buidl_usd_1
         value: 1.0
+
+  # ---------------------------------------------------------------- Ondo
+  # Roles: instant_managers (xManager USDY_InstantManager; `Redemption` → instant),
+  #        request_managers (legacy RWAHub USDYManager; `RedemptionRequestedServicedOffChain` / `RedemptionRequested` → request)
+  # Request rows are INCOMPLETE: holders also send USDY to Ondo-controlled Safes (e.g. 0x505ff446…, 0x1a694a09…) that
+  # burn it in batches. Ondo does not document that path, so it is not collected (docs/notes/usdy-redemptions.md).
+  # Bridge burns (LayerZero OFT adapter, Axelar SourceBridge) are not redemptions and are not collected.
+  - symbol: USDY
+    protocol: ondo
+    chain: ethereum
+    address: "0x96F6eF951840721AdBF46Ac996b59E0235CB985C"
+    decimals: 18
+    start_block: 17672244  # token deploy
+    contracts:
+      instant_managers:
+        - name: instant_manager
+          address: "0xa42613C243b67BF6194Ac327795b926B4b491f15"  # USDY_InstantManager (with rUSDY redeem)
+          abi: ondo/USDY_InstantManager
+          from_block: 23970980
+      request_managers:
+        - name: usdy_manager  # legacy (Ondo docs: deprecated); last request at 24828144
+          address: "0x25A103A1D6AeC5967c1A4fe2039cdc514886b97e"
+          abi: ondo/USDYManager
+          from_block: 17721123
+    price_sources:
+      # USDYOracleWrapper: points to the canonical USDY oracle (ContinuousPriceOracle since 2026-11-01). Same value as
+      # OndoOracle.getAssetPrice(USDY), the price the instant manager pays at.
+      - type: rpc_call
+        name: usdy_oracle_wrapper
+        address: "0x87b126e5518b6a1Bb8465779b4607C45C643DF90"
+        abi: ondo/USDYOracle
+        fn: getPrice
+        decimals: 18
+        from_block: 23949241
+      # Before the wrapper: RWADynamicOracle (daily rate, used by rUSDY); equal to the wrapper until 2026-11-01
+      - type: rpc_call
+        name: usdy_rwa_dynamic_oracle
+        address: "0xa0219aa5b31e65bc920b5b6dfb8edf0988121de0"
+        abi: ondo/USDYOracle
+        fn: getPrice
+        decimals: 18
+        from_block: 18485028
+      # Before RWADynamicOracle (1 request at 18263212): USDYManager's pricer, latest set price
+      - type: rpc_call
+        name: usdy_pricer
+        address: "0x7fb0228c6338da4ec948df7b6a8e22ad2bb2bfb5"
+        abi: ondo/USDYPricer
+        fn: getLatestPrice
+        decimals: 18
+        from_block: 17672215

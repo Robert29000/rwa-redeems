@@ -1,50 +1,50 @@
 {
-  "generated_at": "2026-11-14T19:46:05+00:00",
+  "generated_at": "2026-11-17T21:58:32+00:00",
   "to_blocks": {
-    "ethereum": 26415389
+    "ethereum": 26437591
   },
-  "total_rows": 13943,
+  "total_rows": 19562,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26415389,
-      "rows": 11917,
+      "to_block": 26437591,
+      "rows": 12035,
       "by_type": {
-        "instant": 10870,
-        "request": 1047
+        "instant": 10981,
+        "request": 1054
       },
       "by_method": {
-        "redeem_v2": 10857,
-        "offchain_redeem": 1047,
+        "redeem_v2": 10968,
+        "offchain_redeem": 1054,
         "redeem_v1": 13
       },
       "by_contract": {
-        "redemption_idle": 10870,
-        "token": 1047
+        "redemption_idle": 10981,
+        "token": 1054
       },
       "price_sources": {
-        "superstate_oracle_ustb": 11917
+        "superstate_oracle_ustb": 12035
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {
         "redemption_idle": {
-          "n": 10870,
-          "median_abs_rel_diff": 6.105127514643982e-11,
-          "p95_abs_rel_diff": 7.938603527879434e-08,
+          "n": 10981,
+          "median_abs_rel_diff": 6.059530655022627e-11,
+          "p95_abs_rel_diff": 7.791968748005473e-08,
           "max_abs_rel_diff": 0.01769620290467233,
-          "share_within_0.1pct": 0.999540018399264
+          "share_within_0.1pct": 0.9995446680630179
         }
       },
       "checks": {
-        "offchain_redeem_events": 11917,
-        "instant": 10870,
-        "request": 1047,
+        "offchain_redeem_events": 12035,
+        "instant": 10981,
+        "request": 1054,
         "contract_events": {
-          "redeem_v2": 10857,
+          "redeem_v2": 10968,
           "redeem_v1": 13
         },
         "instant_without_contract_event": 0,
@@ -68,28 +68,28 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26415389,
-      "rows": 492,
+      "to_block": 26437591,
+      "rows": 496,
       "by_type": {
-        "request": 492
+        "request": 496
       },
       "by_method": {
-        "offchain_redeem": 492
+        "offchain_redeem": 496
       },
       "by_contract": {
-        "token": 492
+        "token": 496
       },
       "price_sources": {
-        "chainlink_uscc_nav": 492
+        "chainlink_uscc_nav": 496
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {},
       "checks": {
-        "offchain_redeem_events": 492,
+        "offchain_redeem_events": 496,
         "instant": 0,
-        "request": 492,
+        "request": 496,
         "contract_events": {},
         "instant_without_contract_event": 0,
         "contract_events_without_token_event": 0,
@@ -97,11 +97,84 @@
         "unconfigured_redemption_contracts": []
       }
     },
+    "ethereum:mTBILL": {
+      "protocol": "midas",
+      "chain": "ethereum",
+      "from_block": 20826541,
+      "to_block": 26437591,
+      "rows": 5497,
+      "by_type": {
+        "instant": 5398,
+        "request": 97,
+        "fiat_request": 2
+      },
+      "by_method": {
+        "redeem_instant": 5398,
+        "redeem_request": 97,
+        "redeem_request_custom_recipient": 2
+      },
+      "by_contract": {
+        "ustb": 5459,
+        "main": 38
+      },
+      "price_sources": {
+        "midas_mtbill_aggregator": 5497
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {
+        "ustb": {
+          "n": 5398,
+          "median_abs_rel_diff": 5.321170726269031e-10,
+          "p95_abs_rel_diff": 1.8648939506538112e-07,
+          "max_abs_rel_diff": 0.004467896726466303,
+          "share_within_0.1pct": 0.99870322341608
+        }
+      },
+      "checks": {
+        "vaults": {
+          "main": {
+            "address": "0xf6e51d24f4793ac5e71e0502213a9bbe3a6d4517",
+            "events": {
+              "RedeemRequest": 36,
+              "RedeemRequestWithCustomRecipient": 2
+            },
+            "payment_tokens": {
+              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+                "data_feed": "0x3aac6fd73fa4e16ec683bd4aaf5ec89bb2c0edc2",
+                "stable": true,
+                "removed": false
+              },
+              "0x866a2bf4e572cbcf37d5071a7a58503bfb36be1b": {
+                "data_feed": "0x1c04a3f615cd594088482be77df6e077eeebf085",
+                "stable": true,
+                "removed": false
+              }
+            }
+          },
+          "ustb": {
+            "address": "0x569d7dccbf6923350521ecbc28a555a500c4f0ec",
+            "events": {
+              "RedeemInstant": 5398,
+              "RedeemRequest": 61
+            },
+            "payment_tokens": {
+              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+                "data_feed": "0x3aac6fd73fa4e16ec683bd4aaf5ec89bb2c0edc2",
+                "stable": true,
+                "removed": false
+              }
+            }
+          }
+        }
+      }
+    },
     "ethereum:mWIN": {
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26415389,
+      "to_block": 26437591,
       "rows": 51,
       "by_type": {
         "request": 36,
@@ -195,7 +268,7 @@
       "protocol": "securitize",
       "chain": "ethereum",
       "from_block": 19343293,
-      "to_block": 26415389,
+      "to_block": 26437591,
       "rows": 1483,
       "by_type": {
         "instant": 1310,

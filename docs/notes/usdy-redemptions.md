@@ -56,7 +56,7 @@ rUSDY has no redemption function of its own, so the collector reads no rUSDY log
 
 | rUSDY function | What happens | Rows |
 |---|---|---|
-| `redeemRebasingUSDY` on the instant manager | rUSDY → USDY → burned → USDC | Yes, `redeem_rebasing_usdy` (§2). The manifest check has `rebasing_rusdy_in` and `rebasing_usdy_in`. |
+| `redeemRebasingUSDY` on the instant manager | rUSDY → USDY → burned → USDC | Yes, `redeem_rebasing_usdy` (§2). The manifest check has `rebasing_wrapper_in` (rUSDY) and `rebasing_token_in` (USDY). |
 | `unwrap` / `unwrapShares` | rUSDY → USDY to the holder (conversion) | No. A later redemption of that USDY is a normal `redeem` row. |
 | `burnShares` (admin, `BURNER_ROLE`) | Burns rUSDY of any account; the USDY goes to the admin | No. Never used on Ethereum. |
 

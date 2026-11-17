@@ -187,8 +187,16 @@ tokens:
         value: 1.0
 
   # ---------------------------------------------------------------- Ondo
-  # Roles: instant_managers (xManager USDY_InstantManager; `Redemption` → instant),
-  #        request_managers (legacy RWAHub USDYManager; `RedemptionRequestedServicedOffChain` / `RedemptionRequested` → request)
+  # Roles: instant_managers  params.kind: xmanager (default; `Redemption`, + params.rebasing_event for rUSDY/rOUSG)
+  #                                       | ousg_legacy (InstantRedemptionOUSG / ...RebasingOUSG; params.token_out)
+  #        request_managers  params.kind: rwa_hub (default; RedemptionRequestedServicedOffChain / RedemptionRequested)
+  #                                       | cash_manager (RedemptionRequested(user, cashAmountIn, epoch))
+  #                          params.token_out = collateral paid for on-chain-claimed requests
+  #        token             params.redemption_wallet = Ondo's documented wallet for manual redemptions
+  #                          (rows: Transfer to it, filtered on the indexed `to`; mints dropped)
+  # params.not_collected on any contract = a known gap, repeated in the manifest checks.
+  #
+  # USDY
   # Request rows are INCOMPLETE: holders also send USDY to Ondo-controlled Safes (e.g. 0x505ff446…, 0x1a694a09…) that
   # burn it in batches. Ondo does not document that path, so it is not collected (docs/notes/usdy-redemptions.md).
   # Bridge burns (LayerZero OFT adapter, Axelar SourceBridge) are not redemptions and are not collected.
@@ -204,10 +212,16 @@ tokens:
           address: "0xa42613C243b67BF6194Ac327795b926B4b491f15"  # USDY_InstantManager (with rUSDY redeem)
           abi: ondo/USDY_InstantManager
           from_block: 23970980
+          params:
+            rebasing_event: InstantRedemptionRebasingUSDY
+            rebasing_amount_field: usdyAmountIn
+            rebasing_wrapper_field: rusdyAmountIn
       request_managers:
         - name: usdy_manager  # legacy (Ondo docs: deprecated); last request at 24828144
           address: "0x25A103A1D6AeC5967c1A4fe2039cdc514886b97e"
           abi: ondo/USDYManager
+          params:
+            not_collected: "USDY transfers to Ondo-controlled Safes that are later burned (undocumented path); request rows are incomplete"
           from_block: 17721123
     price_sources:
       # USDYOracleWrapper: points to the canonical USDY oracle (ContinuousPriceOracle since 2026-11-01). Same value as
@@ -235,3 +249,72 @@ tokens:
         fn: getLatestPrice
         decimals: 18
         from_block: 17672215
+
+  # OUSG. Burn reconciliation: every OUSG burn is a manager redemption, a redemption-wallet burn, or dust
+  # (docs/notes/ousg-redemptions.md). Two managers (first OUSGInstantManager 0x1189…, original CashManager 0x70b4…)
+  # are not in Ondo's address list but are verified Ondo contracts with the same events.
+  - symbol: OUSG
+    protocol: ondo
+    chain: ethereum
+    address: "0x1B19C19393e2d034D8Ff31ff34c81252FcBbee92"
+    decimals: 18
+    start_block: 16234210  # token deploy
+    contracts:
+      instant_managers:
+        - name: instant_manager
+          address: "0x93358db73B6cd4b98D89c8F5f230E81a95c2643a"  # OUSG_InstantManager (xManager, with rOUSG redeem)
+          abi: ondo/OUSG_InstantManager
+          from_block: 22141423
+          params:
+            rebasing_event: InstantRedemptionRebasingOUSG
+            rebasing_amount_field: ousgAmountIn
+            rebasing_wrapper_field: rousgAmountIn
+        - name: instant_manager_legacy  # Ondo docs: deprecated 2025-04-07
+          address: "0x2826989983e3a66F0622132D019c2Ae173eb6A43"
+          abi: ondo/OUSGInstantManager
+          from_block: 19719494
+          params: { kind: ousg_legacy, token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # usdc()
+        - name: instant_manager_v0  # first OUSGInstantManager (undocumented; same deployer and events as legacy)
+          address: "0x1189bacb100676db9a495eec04a730a53a8ad97c"
+          abi: ondo/OUSGInstantManager
+          from_block: 19670956
+          params: { kind: ousg_legacy, token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }
+      request_managers:
+        - name: ousg_manager  # RWAHub; Ondo docs: deprecated 2024-04-15
+          address: "0xF16c188c2D411627d39655A60409eC6707D3d5e8"
+          abi: ondo/OUSGManager
+          from_block: 18742790
+          params: { token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # collateral()
+        - name: cash_manager  # Ondo docs: deprecated 2023-12-13
+          address: "0x3501883a646f1F8417BcB62162372550954D618f"
+          abi: ondo/CashManager
+          from_block: 16677854
+          params: { kind: cash_manager, token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }
+        - name: cash_manager_v0  # original CashManager (undocumented), 1 request
+          address: "0x70b45a68ca257db49dec455af6c725f7f1c904e8"
+          abi: ondo/CashManager
+          from_block: 16234235
+          params: { kind: cash_manager, token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }
+      token:
+        abi: ondo/OUSG
+        params:
+          redemption_wallet: "0x72Be8C14B7564f7a61ba2f6B7E50D18DC1D4B63D"  # "OUSG Recipient ... for manual redemptions"
+          not_collected: "Transfers to the OUSG admin Safe 0xaed4caf2… (likely the manual-redemption wallet before 0x72be…, undocumented)"
+    price_sources:
+      # RWAOracleExternalComparisonCheck: the OUSG oracle behind OUSGOracleWrapper / OndoOracle and the legacy
+      # instant managers (getOUSGPrice). Updated daily; first price at 17131761.
+      - type: rpc_call
+        name: ousg_rwa_oracle
+        address: "0x0502c5ae08E7CD64fe1AEDA7D6e229413eCC6abe"
+        abi: ondo/OUSGOracle
+        fn: rwaPrice
+        decimals: 18
+        from_block: 17131761
+      # Before that: CashManager's last set mint exchange rate (real rates from 16735625; agrees with the oracles)
+      - type: rpc_call
+        name: ousg_cash_manager_rate
+        address: "0x3501883a646f1F8417BcB62162372550954D618f"
+        abi: ondo/CashManager
+        fn: lastSetMintExchangeRate
+        decimals: 18
+        from_block: 16735625

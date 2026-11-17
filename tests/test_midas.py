@@ -46,3 +46,40 @@ def test_fiat_request(config, make_ctx, fixture_logs, abis):
     df = MidasAdapter(make_ctx([fiat])).collect(token(config, "mWIN")).redemptions
     row = df.iloc[0]
     assert (row.redemption_type, row.token_out, row.token_out_symbol) == ("fiat_request", FIAT_TOKEN, "FIAT")
+
+
+MTBILL_MAIN = "0xf6e51d24f4793ac5e71e0502213a9bbe3a6d4517"
+MTBILL_USTB = "0x569d7dccbf6923350521ecbc28a555a500c4f0ec"
+USDC = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+
+
+def test_mtbill_liquidity_sources(config, make_ctx, fixture_logs):
+    result = MidasAdapter(make_ctx(fixture_logs)).collect(token(config, "mTBILL"))
+    df = result.redemptions
+
+    buidl = _by_tx(df, "0xf2d751f9")  # vault was RedemptionVaultWithBUIDL: BUIDL Settlement SettlementCompleted
+    assert (buidl.contract, buidl.redemption_type, buidl.token_out_symbol) == (MTBILL_USTB, "instant", "USDC")
+    assert buidl.via_fallback
+
+    no_source = _by_tx(df, "0xb1fd158c")  # same vault, paid from its own USDC
+    assert no_source.redemption_type == "instant" and not no_source.via_fallback
+
+    ustb = _by_tx(df, "0x861d680c")  # after the upgrade to RedemptionVaultWithUSTB: Superstate RedeemV2
+    assert ustb.via_fallback and ustb.token_out_usd == ustb.token_out_amount
+
+
+def test_mtbill_requests_and_legacy_payment_tokens(config, make_ctx, fixture_logs):
+    result = MidasAdapter(make_ctx(fixture_logs)).collect(token(config, "mTBILL"))
+    df = result.redemptions
+
+    custom = _by_tx(df, "0x65d1258d")
+    assert (custom.contract, custom.method) == (MTBILL_MAIN, "redeem_request_custom_recipient")
+    assert custom.recipient != custom.holder and pd.isna(custom.via_fallback)
+
+    fiat = _by_tx(df, "0x8eb45c69")
+    assert (fiat.redemption_type, fiat.token_out_symbol) == ("fiat_request", "FIAT")
+
+    # payment tokens were added with the pre-2025 AddPaymentToken signature (no `allowance`)
+    vaults = result.checks["vaults"]
+    assert vaults["main"]["payment_tokens"][USDC]["stable"]
+    assert USDC in vaults["ustb"]["payment_tokens"]

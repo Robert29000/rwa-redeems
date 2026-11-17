@@ -89,14 +89,15 @@ The adapter sets `via_fallback = true` when the receipt has an event from one of
 
 Cross-check: the BUIDL rows with holder = the `ustb` vault (66) and the USTB rows with holder = the `ustb` vault (4,410) match these counts exactly.
 
-## 6. Double counting across tokens
+## 6. Liquidity from other RWA tokens
 
-The same economic redemption can appear on more than one token. Do not add USD across tokens without a filter.
+The collector treats each token system on its own.
+A product that redeems another RWA token to fund its own payout is a normal holder of that token, and its redemption is a normal redemption of that token. Anyone can build a product on a token's redemption infrastructure.
+Thus one transaction can have rows for two tokens. Each row is correct for its own token.
 
-1. **Downstream (mTBILL → BUIDL/USTB).** Each `via_fallback` mTBILL instant has a BUIDL or USTB row with `holder` = `0x569d…`. These are 66 BUIDL rows ($4.4M) and 4,410 USTB rows ($119.0M; about 40% of all USTB instant rows).
-2. **Upstream (other Midas tokens → mTBILL).** 4,813 of 5,398 mTBILL instants ($114.8M of $136.4M) are made by another Midas vault in the same tx that funds its own payout. The holder emits its own `RedeemInstant` in that tx. The top holders are the `RedemptionVaultWithSwapper` vaults of mEDGE `0x9b2c…`, mMEV `0xac14…`, mBASIS `0x0d89…`, mAPOLLO `0x5aea…`, mHYPER `0x6be2…`, mFARM `0xf4f0…`, and mWIN `main` `0x6057…` (5 rows, $1.3M; those mWIN rows have `via_fallback = true`).
-   Only mWIN is collected of these, so the other nested rows have no matching row in the output.
-   The collector has no column for "this row funds a redemption of another token". To find them, check the holder's own `RedeemInstant` in the cached receipt (`data/raw/receipts/ethereum.logs.jsonl`).
+1. **mTBILL redeems BUIDL or USTB.** Each `via_fallback` mTBILL instant has a BUIDL or USTB row with `holder` = `0x569d…` (the `ustb` vault). These are 66 BUIDL rows ($4.4M) and 4,410 USTB rows ($119.0M; about 40% of all USTB instant rows).
+2. **Other Midas products redeem mTBILL.** 4,813 of 5,398 mTBILL instants ($114.8M of $136.4M) are made by another Midas vault in the same tx that funds its own payout. The holder emits its own `RedeemInstant` in that tx. The top holders are the `RedemptionVaultWithSwapper` vaults of mEDGE `0x9b2c…`, mMEV `0xac14…`, mBASIS `0x0d89…`, mAPOLLO `0x5aea…`, mHYPER `0x6be2…`, mFARM `0xf4f0…`, and mWIN `main` `0x6057…` (5 rows, $1.3M; those mWIN rows have `via_fallback = true`).
+   To find these rows, check the holder's own `RedeemInstant` in the cached receipt (`data/raw/receipts/ethereum.logs.jsonl`).
 
 ## 7. Keeping the integration current (checklist)
 

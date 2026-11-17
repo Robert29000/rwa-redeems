@@ -37,7 +37,7 @@ Instant details:
 - All managers burn the OUSG and pay USDC in the same tx.
 - xManager `Redemption`: `fee` and `redemptionUSDValue` are USD with 18 decimals.
 - Legacy/v0: `usdcAmountOut` is after the fee. The fee comes from `RedeemFeesDeducted(sender, feeReceiver, usdcFees, usdcAmountOut)` in the same tx, joined on (tx, sender, usdcAmountOut). All fees so far are 0.
-- Legacy/v0 managers redeem BUIDL for the USDC unless they hold sufficient USDC (`BUIDLRedemptionSkipped`). Those BUIDL redemptions are also BUIDL rows (double counting across tokens). The collector does not flag them.
+- Legacy/v0 managers redeem BUIDL for the USDC unless they hold sufficient USDC (`BUIDLRedemptionSkipped`). The current manager can do the same through its token source (BUIDL rows with holder `0x9f205e1a…`). These are normal holder redemptions of BUIDL, so they are also BUIDL rows: 168 OUSG instant txs ($274.5M) have a BUIDL row in the same tx. The collector treats each token system on its own and does not flag them.
 
 Request details:
 - `OUSGManager` and `CashManager` burn the OUSG when the request is made. USDC is paid later (`collateral()` = USDC).

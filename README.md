@@ -1,6 +1,6 @@
 # RWA Redeems Research
 
-This tool collects the on-chain redemption events of RWA tokens: Superstate USTB, Superstate USCC, Midas mTBILL, Midas mWIN and Securitize BUIDL.
+This tool collects the on-chain redemption events of RWA tokens: Superstate USTB, Superstate USCC, Midas mTBILL, Midas mWIN, Securitize BUIDL and Ondo USDY. For USDY the request data is not complete (see `docs/notes/usdy-redemptions.md`).
 It puts each redemption into one of three types: `instant`, `request` or `fiat_request`.
 It gets the USD value of each redemption from the price oracle at the block of the event.
 It writes the results to CSV files.
@@ -53,7 +53,7 @@ The tool sets `price_is_backfilled` to `true` for these rows.
 | `config/chains.yaml` | Chains: chain ID, RPC URL and known payout tokens. The tool replaces `${VAR}` with the value of the environment variable. |
 | `config/tokens.yaml` | Tokens: protocol, addresses, start block, contracts for each role and price sources. |
 | `abis/` | ABI files in JSON format. The configuration refers to each file by its name. |
-| `docs/notes/` | Notes for each protocol: redemption types, flow of funds, sources of data. Example: `buidl-redemptions.md`, `mtbill-redemptions.md`. |
+| `docs/notes/` | Notes for each protocol: redemption types, flow of funds, sources of data. Example: `buidl-redemptions.md`, `mtbill-redemptions.md`, `usdy-redemptions.md`. |
 | `src/rwa_redeems/sources/` | Clients for the Etherscan V2 log API and for JSON-RPC, and the disk cache. |
 | `src/rwa_redeems/events.py` | Gets and decodes events for all protocols. |
 | `src/rwa_redeems/pricing/` | The price source types and the fallback logic. |

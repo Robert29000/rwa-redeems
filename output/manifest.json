@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-11-17T22:51:44+00:00",
+  "generated_at": "2026-11-17T23:36:44+00:00",
   "to_blocks": {
-    "ethereum": 26437857
+    "ethereum": 26438081
   },
-  "total_rows": 20561,
+  "total_rows": 21304,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26437857,
-      "rows": 12035,
+      "to_block": 26438081,
+      "rows": 12036,
       "by_type": {
         "instant": 10981,
-        "request": 1054
+        "request": 1055
       },
       "by_method": {
         "redeem_v2": 10968,
-        "offchain_redeem": 1054,
+        "offchain_redeem": 1055,
         "redeem_v1": 13
       },
       "by_contract": {
         "redemption_idle": 10981,
-        "token": 1054
+        "token": 1055
       },
       "price_sources": {
-        "superstate_oracle_ustb": 12035
+        "superstate_oracle_ustb": 12036
       },
       "unpriced": 0,
       "backfilled_prices": 0,
@@ -40,9 +40,9 @@
         }
       },
       "checks": {
-        "offchain_redeem_events": 12035,
+        "offchain_redeem_events": 12036,
         "instant": 10981,
-        "request": 1054,
+        "request": 1055,
         "contract_events": {
           "redeem_v2": 10968,
           "redeem_v1": 13
@@ -68,7 +68,7 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26437857,
+      "to_block": 26438081,
       "rows": 496,
       "by_type": {
         "request": 496
@@ -101,7 +101,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 20826541,
-      "to_block": 26437857,
+      "to_block": 26438081,
       "rows": 5497,
       "by_type": {
         "instant": 5398,
@@ -174,7 +174,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26437857,
+      "to_block": 26438081,
       "rows": 51,
       "by_type": {
         "request": 36,
@@ -268,7 +268,7 @@
       "protocol": "securitize",
       "chain": "ethereum",
       "from_block": 19343293,
-      "to_block": 26437857,
+      "to_block": 26438081,
       "rows": 1483,
       "by_type": {
         "instant": 1310,
@@ -426,7 +426,7 @@
       "protocol": "ondo",
       "chain": "ethereum",
       "from_block": 17672244,
-      "to_block": 26437857,
+      "to_block": 26438081,
       "rows": 999,
       "by_type": {
         "instant": 918,
@@ -459,7 +459,6 @@
         }
       },
       "checks": {
-        "not_collected": "USDY transfers to Ondo-controlled Safes that are later burned (undocumented path); request rows are incomplete",
         "instant_managers": {
           "instant_manager": {
             "address": "0xa42613c243b67bf6194ac327795b926b4b491f15",
@@ -467,11 +466,11 @@
               "Redemption": 918,
               "InstantRedemptionRebasingUSDY": 14
             },
-            "rebasing_unmatched": 0,
-            "rebasing_rusdy_in": 1050979.8183452827,
-            "rebasing_usdy_in": 912460.668087251,
             "redemption_usd_value": 104584138.10689116,
-            "fees_usd": 0.0
+            "fees_usd": 0.0,
+            "rebasing_unmatched": 0,
+            "rebasing_wrapper_in": 1050979.8183452827,
+            "rebasing_token_in": 912460.668087251
           }
         },
         "request_managers": {
@@ -481,6 +480,135 @@
               "RedemptionRequestedServicedOffChain": 81
             }
           }
+        },
+        "not_collected": [
+          "USDY transfers to Ondo-controlled Safes that are later burned (undocumented path); request rows are incomplete"
+        ]
+      }
+    },
+    "ethereum:OUSG": {
+      "protocol": "ondo",
+      "chain": "ethereum",
+      "from_block": 16234210,
+      "to_block": 26438081,
+      "rows": 742,
+      "by_type": {
+        "instant": 520,
+        "request": 222
+      },
+      "by_method": {
+        "redeem": 506,
+        "request_redemption": 181,
+        "transfer_to_redemption_wallet": 41,
+        "redeem_rebasing_ousg": 14
+      },
+      "by_contract": {
+        "instant_manager": 314,
+        "instant_manager_legacy": 203,
+        "cash_manager": 100,
+        "ousg_manager": 80,
+        "redemption_wallet": 41,
+        "instant_manager_v0": 3,
+        "cash_manager_v0": 1
+      },
+      "price_sources": {
+        "ousg_rwa_oracle": 728,
+        "ousg_cash_manager_rate": 12,
+        "backfill:ousg_cash_manager_rate": 1,
+        "<NA>": 1
+      },
+      "unpriced": 1,
+      "backfilled_prices": 1,
+      "pre_launch": 0,
+      "price_consistency": {
+        "instant_manager": {
+          "n": 314,
+          "median_abs_rel_diff": 2.634004125923184e-13,
+          "p95_abs_rel_diff": 4.3500036905896535e-11,
+          "max_abs_rel_diff": 2.0000012757037666e-10,
+          "share_within_0.1pct": 1.0
+        },
+        "instant_manager_legacy": {
+          "n": 203,
+          "median_abs_rel_diff": 8.644196469731469e-13,
+          "p95_abs_rel_diff": 9.992268124037194e-11,
+          "max_abs_rel_diff": 1.3901790829606853e-10,
+          "share_within_0.1pct": 1.0
+        },
+        "instant_manager_v0": {
+          "n": 3,
+          "median_abs_rel_diff": 2.581490576858414e-12,
+          "p95_abs_rel_diff": 1.8257850786795868e-11,
+          "max_abs_rel_diff": 1.9999668587900032e-11,
+          "share_within_0.1pct": 1.0
+        }
+      },
+      "checks": {
+        "instant_managers": {
+          "instant_manager": {
+            "address": "0x93358db73b6cd4b98d89c8f5f230e81a95c2643a",
+            "events": {
+              "Redemption": 314,
+              "InstantRedemptionRebasingOUSG": 2
+            },
+            "redemption_usd_value": 530990419.22204065,
+            "fees_usd": 0.0,
+            "rebasing_unmatched": 0,
+            "rebasing_wrapper_in": 10000.0,
+            "rebasing_token_in": 89.33852244669089
+          },
+          "instant_manager_legacy": {
+            "address": "0x2826989983e3a66f0622132d019c2ae173eb6a43",
+            "events": {
+              "RedeemFeesDeducted": 203,
+              "InstantRedemptionOUSG": 192,
+              "InstantRedemptionRebasingOUSG": 11
+            },
+            "fees_unmatched": 0,
+            "fees_usdc": 0.0
+          },
+          "instant_manager_v0": {
+            "address": "0x1189bacb100676db9a495eec04a730a53a8ad97c",
+            "events": {
+              "RedeemFeesDeducted": 3,
+              "InstantRedemptionOUSG": 2,
+              "InstantRedemptionRebasingOUSG": 1
+            },
+            "fees_unmatched": 0,
+            "fees_usdc": 0.0
+          }
+        },
+        "request_managers": {
+          "ousg_manager": {
+            "address": "0xf16c188c2d411627d39655a60409ec6707d3d5e8",
+            "events": {
+              "RedemptionRequested": 80
+            }
+          },
+          "cash_manager": {
+            "address": "0x3501883a646f1f8417bcb62162372550954d618f",
+            "events": {
+              "RedemptionRequested": 100
+            },
+            "epochs": 75
+          },
+          "cash_manager_v0": {
+            "address": "0x70b45a68ca257db49dec455af6c725f7f1c904e8",
+            "events": {
+              "RedemptionRequested": 1
+            },
+            "epochs": 1
+          }
+        },
+        "not_collected": [
+          "Transfers to the OUSG admin Safe 0xaed4caf2\u2026 (likely the manual-redemption wallet before 0x72be\u2026, undocumented)"
+        ],
+        "redemption_wallet": {
+          "address": "0x72be8c14b7564f7a61ba2f6b7e50d18dc1d4b63d",
+          "transfers_in": 41,
+          "token_in": 5989395.122244645,
+          "senders": 22,
+          "excluded_mints": 0
         }
       }
     }

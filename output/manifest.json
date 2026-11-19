@@ -1,50 +1,50 @@
 {
-  "generated_at": "2026-11-17T23:36:44+00:00",
+  "generated_at": "2026-11-19T14:20:54+00:00",
   "to_blocks": {
-    "ethereum": 26438081
+    "ethereum": 26449672
   },
-  "total_rows": 21304,
+  "total_rows": 21478,
   "tokens": {
     "ethereum:USTB": {
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932686,
-      "to_block": 26438081,
-      "rows": 12036,
+      "to_block": 26449672,
+      "rows": 12077,
       "by_type": {
-        "instant": 10981,
-        "request": 1055
+        "instant": 11015,
+        "request": 1062
       },
       "by_method": {
-        "redeem_v2": 10968,
-        "offchain_redeem": 1055,
+        "redeem_v2": 11002,
+        "offchain_redeem": 1062,
         "redeem_v1": 13
       },
       "by_contract": {
-        "redemption_idle": 10981,
-        "token": 1055
+        "redemption_idle": 11015,
+        "token": 1062
       },
       "price_sources": {
-        "superstate_oracle_ustb": 12036
+        "superstate_oracle_ustb": 12077
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {
         "redemption_idle": {
-          "n": 10981,
-          "median_abs_rel_diff": 6.059530655022627e-11,
-          "p95_abs_rel_diff": 7.791968748005473e-08,
+          "n": 11015,
+          "median_abs_rel_diff": 6.006140029768403e-11,
+          "p95_abs_rel_diff": 7.750518971061338e-08,
           "max_abs_rel_diff": 0.01769620290467233,
-          "share_within_0.1pct": 0.9995446680630179
+          "share_within_0.1pct": 0.9995460735360872
         }
       },
       "checks": {
-        "offchain_redeem_events": 12036,
-        "instant": 10981,
-        "request": 1055,
+        "offchain_redeem_events": 12077,
+        "instant": 11015,
+        "request": 1062,
         "contract_events": {
-          "redeem_v2": 10968,
+          "redeem_v2": 11002,
           "redeem_v1": 13
         },
         "instant_without_contract_event": 0,
@@ -68,7 +68,7 @@
       "protocol": "superstate",
       "chain": "ethereum",
       "from_block": 21932896,
-      "to_block": 26438081,
+      "to_block": 26449672,
       "rows": 496,
       "by_type": {
         "request": 496
@@ -101,35 +101,35 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 20826541,
-      "to_block": 26438081,
-      "rows": 5497,
+      "to_block": 26449672,
+      "rows": 5503,
       "by_type": {
-        "instant": 5398,
+        "instant": 5404,
         "request": 97,
         "fiat_request": 2
       },
       "by_method": {
-        "redeem_instant": 5398,
+        "redeem_instant": 5404,
         "redeem_request": 97,
         "redeem_request_custom_recipient": 2
       },
       "by_contract": {
-        "ustb": 5459,
+        "ustb": 5465,
         "main": 38
       },
       "price_sources": {
-        "midas_mtbill_aggregator": 5497
+        "midas_mtbill_aggregator": 5503
       },
       "unpriced": 0,
       "backfilled_prices": 0,
       "pre_launch": 0,
       "price_consistency": {
         "ustb": {
-          "n": 5398,
-          "median_abs_rel_diff": 5.321170726269031e-10,
-          "p95_abs_rel_diff": 1.8648939506538112e-07,
+          "n": 5404,
+          "median_abs_rel_diff": 5.385135115609785e-10,
+          "p95_abs_rel_diff": 1.8663594922307947e-07,
           "max_abs_rel_diff": 0.004467896726466303,
-          "share_within_0.1pct": 0.99870322341608
+          "share_within_0.1pct": 0.9987046632124352
         }
       },
       "checks": {
@@ -156,7 +156,7 @@
           "ustb": {
             "address": "0x569d7dccbf6923350521ecbc28a555a500c4f0ec",
             "events": {
-              "RedeemInstant": 5398,
+              "RedeemInstant": 5404,
               "RedeemRequest": 61
             },
             "payment_tokens": {
@@ -174,7 +174,7 @@
       "protocol": "midas",
       "chain": "ethereum",
       "from_block": 25236860,
-      "to_block": 26438081,
+      "to_block": 26449672,
       "rows": 51,
       "by_type": {
         "request": 36,
@@ -268,7 +268,7 @@
       "protocol": "securitize",
       "chain": "ethereum",
       "from_block": 19343293,
-      "to_block": 26438081,
+      "to_block": 26449672,
       "rows": 1483,
       "by_type": {
         "instant": 1310,
@@ -426,23 +426,23 @@
       "protocol": "ondo",
       "chain": "ethereum",
       "from_block": 17672244,
-      "to_block": 26438081,
-      "rows": 999,
+      "to_block": 26449672,
+      "rows": 1032,
       "by_type": {
-        "instant": 918,
+        "instant": 951,
         "request": 81
       },
       "by_method": {
-        "redeem": 904,
+        "redeem": 937,
         "request_redemption_serviced_offchain": 81,
         "redeem_rebasing_usdy": 14
       },
       "by_contract": {
-        "instant_manager": 918,
+        "instant_manager": 951,
         "usdy_manager": 81
       },
       "price_sources": {
-        "usdy_oracle_wrapper": 932,
+        "usdy_oracle_wrapper": 965,
         "usdy_rwa_dynamic_oracle": 66,
         "usdy_pricer": 1
       },
@@ -451,9 +451,9 @@
       "pre_launch": 0,
       "price_consistency": {
         "instant_manager": {
-          "n": 918,
-          "median_abs_rel_diff": 1.1218692641534744e-11,
-          "p95_abs_rel_diff": 7.9960577770155e-08,
+          "n": 951,
+          "median_abs_rel_diff": 1.1262768495612363e-11,
+          "p95_abs_rel_diff": 7.77214319014341e-08,
           "max_abs_rel_diff": 8.561178393984292e-07,
           "share_within_0.1pct": 1.0
         }
@@ -463,10 +463,10 @@
           "instant_manager": {
             "address": "0xa42613c243b67bf6194ac327795b926b4b491f15",
             "events": {
-              "Redemption": 918,
+              "Redemption": 951,
               "InstantRedemptionRebasingUSDY": 14
             },
-            "redemption_usd_value": 104584138.10689116,
+            "redemption_usd_value": 110600776.04344432,
             "fees_usd": 0.0,
             "rebasing_unmatched": 0,
             "rebasing_wrapper_in": 1050979.8183452827,
@@ -490,20 +490,20 @@
       "protocol": "ondo",
       "chain": "ethereum",
       "from_block": 16234210,
-      "to_block": 26438081,
-      "rows": 742,
+      "to_block": 26449672,
+      "rows": 743,
       "by_type": {
-        "instant": 520,
+        "instant": 521,
         "request": 222
       },
       "by_method": {
-        "redeem": 506,
+        "redeem": 507,
         "request_redemption": 181,
         "transfer_to_redemption_wallet": 41,
         "redeem_rebasing_ousg": 14
       },
       "by_contract": {
-        "instant_manager": 314,
+        "instant_manager": 315,
         "instant_manager_legacy": 203,
         "cash_manager": 100,
         "ousg_manager": 80,
@@ -512,7 +512,7 @@
         "cash_manager_v0": 1
       },
       "price_sources": {
-        "ousg_rwa_oracle": 728,
+        "ousg_rwa_oracle": 729,
         "ousg_cash_manager_rate": 12,
         "backfill:ousg_cash_manager_rate": 1,
         "<NA>": 1
@@ -522,9 +522,9 @@
       "pre_launch": 0,
       "price_consistency": {
         "instant_manager": {
-          "n": 314,
-          "median_abs_rel_diff": 2.634004125923184e-13,
-          "p95_abs_rel_diff": 4.3500036905896535e-11,
+          "n": 315,
+          "median_abs_rel_diff": 2.6856294965682537e-13,
+          "p95_abs_rel_diff": 4.3000047966757054e-11,
           "max_abs_rel_diff": 2.0000012757037666e-10,
           "share_within_0.1pct": 1.0
         },
@@ -548,10 +548,10 @@
           "instant_manager": {
             "address": "0x93358db73b6cd4b98d89c8f5f230e81a95c2643a",
             "events": {
-              "Redemption": 314,
+              "Redemption": 315,
               "InstantRedemptionRebasingOUSG": 2
             },
-            "redemption_usd_value": 530990419.22204065,
+            "redemption_usd_value": 531990445.3345726,
             "fees_usd": 0.0,
             "rebasing_unmatched": 0,
             "rebasing_wrapper_in": 10000.0,
@@ -610,6 +610,168 @@
           "senders": 22,
           "excluded_mints": 0
         }
+      }
+    },
+    "ethereum:JAAA": {
+      "protocol": "centrifuge",
+      "chain": "ethereum",
+      "from_block": 22297839,
+      "to_block": 26449672,
+      "rows": 93,
+      "by_type": {
+        "request": 93
+      },
+      "by_method": {
+        "request_redeem": 93
+      },
+      "by_contract": {
+        "usdc": 83,
+        "usdt": 8,
+        "usdc_v2": 2
+      },
+      "price_sources": {
+        "jaaa_usdc_vault_price_per_share": 83,
+        "jaaa_usdt_vault_price_per_share": 8,
+        "jaaa_usdc_v2_vault_price_per_share": 2
+      },
+      "unpriced": 0,
+      "backfilled_prices": 0,
+      "pre_launch": 0,
+      "price_consistency": {},
+      "checks": {
+        "vaults": {
+          "usdc_v2": {
+            "address": "0xe9d1f733f406d4bbbdfac6d4cfcd2e13a6ee1d01",
+            "redeem_requests": 2,
+            "RedeemClaimable": 2,
+            "Withdraw": 2,
+            "CancelRedeemRequest": 0,
+            "CancelRedeemClaimable": 0,
+            "CancelRedeemClaim": 0,
+            "controller_not_owner": 0,
+            "sender_not_owner": 0
+          },
+          "usdc": {
+            "address": "0x4880799ee5200fc58da299e965df644fbf46780b",
+            "redeem_requests": 83,
+            "RedeemClaimable": 85,
+            "Withdraw": 87,
+            "CancelRedeemRequest": 0,
+            "CancelRedeemClaimable": 0,
+            "CancelRedeemClaim": 0,
+            "controller_not_owner": 0,
+            "sender_not_owner": 43
+          },
+          "usdt": {
+            "address": "0x4a76fb02421b1d38aaa40db541f59b2cb04b0770",
+            "redeem_requests": 8,
+            "RedeemClaimable": 7,
+            "Withdraw": 7,
+            "CancelRedeemRequest": 0,
+            "CancelRedeemClaimable": 0,
+            "CancelRedeemClaim": 0,
+            "controller_not_owner": 0,
+            "sender_not_owner": 6
+          },
+          "ausd": {
+            "address": "0x3148910f61c761a8ea939c5d6ab88e5265b71106",
+            "redeem_requests": 0,
+            "RedeemClaimable": 0,
+            "Withdraw": 0,
+            "CancelRedeemRequest": 0,
+            "CancelRedeemClaimable": 0,
+            "CancelRedeemClaim": 0,
+            "controller_not_owner": 0,
+            "sender_not_owner": 0
+          },
+          "usat": {
+            "address": "0x13470dbaaafddbf1a0d9048ddcafd6dd82e14372",
+            "redeem_requests": 0,
+            "RedeemClaimable": 0,
+            "Withdraw": 0,
+            "CancelRedeemRequest": 0,
+            "CancelRedeemClaimable": 0,
+            "CancelRedeemClaim": 0,
+            "controller_not_owner": 0,
+            "sender_not_owner": 0
+          }
+        },
+        "cancellations": {
+          "CancelRedeemRequest": 0,
+          "CancelRedeemClaimable": 0,
+          "CancelRedeemClaim": 0
+        },
+        "not_collected": [
+          "Manual BalanceSheet revokes: a pool manager pulls a holder's JAAA and burns it without a vault event (6 so far, 160.7M JAAA); likely off-chain-settled redemptions, undocumented"
+        ],
+        "vault_updates": [
+          {
+            "block": 22297843,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0xe9d1f733f406d4bbbdfac6d4cfcd2e13a6ee1d01"
+          },
+          {
+            "block": 22982600,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x4880799ee5200fc58da299e965df644fbf46780b"
+          },
+          {
+            "block": 23015872,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0xe9d1f733f406d4bbbdfac6d4cfcd2e13a6ee1d01"
+          },
+          {
+            "block": 23033420,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x0000000000000000000000000000000000000000"
+          },
+          {
+            "block": 23033420,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x4880799ee5200fc58da299e965df644fbf46780b"
+          },
+          {
+            "block": 23033420,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0xe9d1f733f406d4bbbdfac6d4cfcd2e13a6ee1d01"
+          },
+          {
+            "block": 23382941,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x0000000000000000000000000000000000000000"
+          },
+          {
+            "block": 23382941,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x4880799ee5200fc58da299e965df644fbf46780b"
+          },
+          {
+            "block": 24349719,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x0000000000000000000000000000000000000000"
+          },
+          {
+            "block": 24385775,
+            "asset": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "vault": "0x4880799ee5200fc58da299e965df644fbf46780b"
+          },
+          {
+            "block": 25350680,
+            "asset": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "vault": "0x4a76fb02421b1d38aaa40db541f59b2cb04b0770"
+          },
+          {
+            "block": 25351412,
+            "asset": "0x00000000efe302beaa2b3e6e1b18d08d69a9012a",
+            "vault": "0x3148910f61c761a8ea939c5d6ab88e5265b71106"
+          },
+          {
+            "block": 25839861,
+            "asset": "0x07041776f5007aca2a54844f50503a18a72a8b68",
+            "vault": "0x13470dbaaafddbf1a0d9048ddcafd6dd82e14372"
+          }
+        ],
+        "unconfigured_vaults": []
       }
     }
   }

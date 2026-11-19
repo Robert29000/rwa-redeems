@@ -11450,6 +11450,47 @@ ethereum,superstate_oracle_ustb,26436854,11.283227,2026-11-17 19:27:47+00:00
 ethereum,superstate_oracle_ustb,26437305,11.283297,2026-11-17 20:58:11+00:00
 ethereum,superstate_oracle_ustb,26437452,11.283319,2026-11-17 21:27:35+00:00
 ethereum,superstate_oracle_ustb,26437905,11.283389,2026-11-17 22:58:23+00:00
+ethereum,superstate_oracle_ustb,26438634,11.283501,2026-11-18 01:24:35+00:00
+ethereum,superstate_oracle_ustb,26439850,11.283689,2026-11-18 05:28:47+00:00
+ethereum,superstate_oracle_ustb,26440118,11.28373,2026-11-18 06:22:23+00:00
+ethereum,superstate_oracle_ustb,26440442,11.28378,2026-11-18 07:27:35+00:00
+ethereum,superstate_oracle_ustb,26441588,11.283956,2026-11-18 11:16:59+00:00
+ethereum,superstate_oracle_ustb,26441664,11.283968,2026-11-18 11:32:11+00:00
+ethereum,superstate_oracle_ustb,26441743,11.28398,2026-11-18 11:47:59+00:00
+ethereum,superstate_oracle_ustb,26441748,11.283981,2026-11-18 11:48:59+00:00
+ethereum,superstate_oracle_ustb,26441812,11.283991,2026-11-18 12:01:47+00:00
+ethereum,superstate_oracle_ustb,26441968,11.284015,2026-11-18 12:33:11+00:00
+ethereum,superstate_oracle_ustb,26442465,11.284091,2026-11-18 14:12:35+00:00
+ethereum,superstate_oracle_ustb,26442570,11.284214,2026-11-18 14:33:35+00:00
+ethereum,superstate_oracle_ustb,26442610,11.284221,2026-11-18 14:41:35+00:00
+ethereum,superstate_oracle_ustb,26442990,11.284282,2026-11-18 15:57:35+00:00
+ethereum,superstate_oracle_ustb,26443040,11.28429,2026-11-18 16:07:35+00:00
+ethereum,superstate_oracle_ustb,26443144,11.284307,2026-11-18 16:28:23+00:00
+ethereum,superstate_oracle_ustb,26443294,11.284332,2026-11-18 16:58:23+00:00
+ethereum,superstate_oracle_ustb,26443444,11.284356,2026-11-18 17:28:23+00:00
+ethereum,superstate_oracle_ustb,26443571,11.284377,2026-11-18 17:53:47+00:00
+ethereum,superstate_oracle_ustb,26443593,11.28438,2026-11-18 17:58:11+00:00
+ethereum,superstate_oracle_ustb,26443742,11.284404,2026-11-18 18:27:59+00:00
+ethereum,superstate_oracle_ustb,26443894,11.284429,2026-11-18 18:58:23+00:00
+ethereum,superstate_oracle_ustb,26443912,11.284432,2026-11-18 19:01:59+00:00
+ethereum,superstate_oracle_ustb,26444044,11.284453,2026-11-18 19:28:23+00:00
+ethereum,superstate_oracle_ustb,26444191,11.284477,2026-11-18 19:57:47+00:00
+ethereum,superstate_oracle_ustb,26444333,11.2845,2026-11-18 20:26:11+00:00
+ethereum,superstate_oracle_ustb,26444493,11.284526,2026-11-18 20:58:23+00:00
+ethereum,superstate_oracle_ustb,26444645,11.284551,2026-11-18 21:28:59+00:00
+ethereum,superstate_oracle_ustb,26444937,11.284599,2026-11-18 22:27:35+00:00
+ethereum,superstate_oracle_ustb,26445089,11.284624,2026-11-18 22:57:59+00:00
+ethereum,superstate_oracle_ustb,26445315,11.28466,2026-11-18 23:43:11+00:00
+ethereum,superstate_oracle_ustb,26446389,11.284835,2026-11-19 03:18:35+00:00
+ethereum,superstate_oracle_ustb,26446730,11.284891,2026-11-19 04:27:23+00:00
+ethereum,superstate_oracle_ustb,26446981,11.284932,2026-11-19 05:17:35+00:00
+ethereum,superstate_oracle_ustb,26446984,11.284932,2026-11-19 05:18:11+00:00
+ethereum,superstate_oracle_ustb,26447581,11.28503,2026-11-19 07:18:23+00:00
+ethereum,superstate_oracle_ustb,26448028,11.285103,2026-11-19 08:47:59+00:00
+ethereum,superstate_oracle_ustb,26448776,11.285224,2026-11-19 11:18:11+00:00
+ethereum,superstate_oracle_ustb,26449224,11.285297,2026-11-19 12:47:47+00:00
+ethereum,superstate_oracle_ustb,26449232,11.285299,2026-11-19 12:49:23+00:00
+ethereum,superstate_oracle_ustb,26449644,11.285366,2026-11-19 14:11:59+00:00
 ethereum,chainlink_uscc_nav,21940349,10.63842,2025-02-27 14:08:35+00:00
 ethereum,chainlink_uscc_nav,21945372,10.640372,2025-02-28 14:08:35+00:00
 ethereum,chainlink_uscc_nav,21989767,10.666911,2025-03-06 14:09:11+00:00
@@ -17380,6 +17421,12 @@ ethereum,midas_mtbill_aggregator,26429471,1.07833423,2026-11-16 15:46:23+00:00
 ethereum,midas_mtbill_aggregator,26434471,1.07833423,2026-11-16 15:46:23+00:00
 ethereum,midas_mtbill_aggregator,26435081,1.07833423,2026-11-16 15:46:23+00:00
 ethereum,midas_mtbill_aggregator,26435962,1.07833423,2026-11-16 15:46:23+00:00
+ethereum,midas_mtbill_aggregator,26440442,1.07842725,2026-11-17 17:57:47+00:00
+ethereum,midas_mtbill_aggregator,26441588,1.07842725,2026-11-17 17:57:47+00:00
+ethereum,midas_mtbill_aggregator,26441664,1.07842725,2026-11-17 17:57:47+00:00
+ethereum,midas_mtbill_aggregator,26443912,1.07842725,2026-11-17 17:57:47+00:00
+ethereum,midas_mtbill_aggregator,26446730,1.07870864,2026-11-18 23:36:23+00:00
+ethereum,midas_mtbill_aggregator,26446981,1.07870864,2026-11-18 23:36:23+00:00
 ethereum,midas_mwin_dialectic_aggregator,26006251,130983.03786612,2026-09-18 14:01:11+00:00
 ethereum,midas_mwin_dialectic_aggregator,26046347,131000.5772019,2026-09-23 16:56:47+00:00
 ethereum,midas_mwin_dialectic_aggregator,26076291,131016.38789766,2026-09-25 14:12:23+00:00
@@ -18360,6 +18407,39 @@ ethereum,usdy_oracle_wrapper,26434815,1.1534835025632162,
 ethereum,usdy_oracle_wrapper,26434886,1.1534846821821902,
 ethereum,usdy_oracle_wrapper,26435172,1.1534893198782938,
 ethereum,usdy_oracle_wrapper,26435928,1.1535015848149281,
+ethereum,usdy_oracle_wrapper,26438167,1.1535378471262967,
+ethereum,usdy_oracle_wrapper,26439649,1.1535619095124812,
+ethereum,usdy_oracle_wrapper,26440302,1.1535724783751733,
+ethereum,usdy_oracle_wrapper,26440491,1.1535755488583088,
+ethereum,usdy_oracle_wrapper,26440543,1.1535763892028437,
+ethereum,usdy_oracle_wrapper,26441279,1.1535882995308349,
+ethereum,usdy_oracle_wrapper,26441352,1.1535894792580557,
+ethereum,usdy_oracle_wrapper,26441982,1.1535996766751124,
+ethereum,usdy_oracle_wrapper,26443863,1.1536300755329076,
+ethereum,usdy_oracle_wrapper,26443899,1.1536306573367336,
+ethereum,usdy_oracle_wrapper,26444654,1.153642891452954,
+ethereum,usdy_oracle_wrapper,26444781,1.1536449601148815,
+ethereum,usdy_oracle_wrapper,26445055,1.153649388354468,
+ethereum,usdy_oracle_wrapper,26445125,1.1536505196596454,
+ethereum,usdy_oracle_wrapper,26445164,1.1536511499592148,
+ethereum,usdy_oracle_wrapper,26445245,1.1536524590425816,
+ethereum,usdy_oracle_wrapper,26445341,1.1536540105505428,
+ethereum,usdy_oracle_wrapper,26445348,1.1536541236823274,
+ethereum,usdy_oracle_wrapper,26445487,1.1536563701408693,
+ethereum,usdy_oracle_wrapper,26447702,1.1536923302396798,
+ethereum,usdy_oracle_wrapper,26447927,1.1536959828778677,
+ethereum,usdy_oracle_wrapper,26448142,1.1536994739069526,
+ethereum,usdy_oracle_wrapper,26448144,1.1536995062313067,
+ethereum,usdy_oracle_wrapper,26448806,1.1537102379778814,
+ethereum,usdy_oracle_wrapper,26449141,1.153715652376277,
+ethereum,usdy_oracle_wrapper,26449162,1.1537159917877524,
+ethereum,usdy_oracle_wrapper,26449164,1.1537160241121065,
+ethereum,usdy_oracle_wrapper,26449170,1.15371612108632,
+ethereum,usdy_oracle_wrapper,26449171,1.1537161372496487,
+ethereum,usdy_oracle_wrapper,26449173,1.1537161695740028,
+ethereum,usdy_oracle_wrapper,26449290,1.1537180605798063,
+ethereum,usdy_oracle_wrapper,26449291,1.1537180767419835,
+ethereum,usdy_oracle_wrapper,26449378,1.1537194990388955,
 ethereum,usdy_rwa_dynamic_oracle,18918898,1.0211314,
 ethereum,usdy_rwa_dynamic_oracle,18969959,1.02210599,
 ethereum,usdy_rwa_dynamic_oracle,19053661,1.02377888,
@@ -19154,6 +19234,7 @@ ethereum,ousg_rwa_oracle,26407340,117.243506,
 ethereum,ousg_rwa_oracle,26407432,117.243506,
 ethereum,ousg_rwa_oracle,26407449,117.243506,
 ethereum,ousg_rwa_oracle,26433293,117.289088,
+ethereum,ousg_rwa_oracle,26440954,117.303063,
 ethereum,ousg_cash_manager_rate,16800173,100.22762409,
 ethereum,ousg_cash_manager_rate,16828278,100.22762409,
 ethereum,ousg_cash_manager_rate,16828838,100.22762409,
@@ -19166,3 +19247,96 @@ ethereum,ousg_cash_manager_rate,16948923,100.60491217,
 ethereum,ousg_cash_manager_rate,16977198,100.60491217,
 ethereum,ousg_cash_manager_rate,17019450,100.73873616,
 ethereum,ousg_cash_manager_rate,17096173,100.86663176,
+ethereum,jaaa_usdc_vault_price_per_share,23591647,1.008611,2025-10-16 14:51:59+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24176915,1.020899,2026-01-04 21:01:47+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24183340,1.020994,2026-01-06 19:30:47+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24191552,1.021397,2026-01-07 20:50:59+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24199947,1.021731,2026-01-09 16:42:35+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24227392,1.022353,2026-01-13 17:06:59+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24240633,1.022486,2026-01-14 14:32:59+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24497123,1.026924,2026-02-19 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24499853,1.026924,2026-02-19 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24527883,1.027371,2026-02-23 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24585290,1.025551,2026-03-03 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24620366,1.026601,2026-03-06 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24621259,1.026601,2026-03-06 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24719930,1.027089,2026-03-19 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24782903,1.027513,2026-03-30 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24799252,1.02788,2026-04-01 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24880534,1.030521,2026-04-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24880678,1.030521,2026-04-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24987385,1.031939,2026-04-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,24992825,1.031939,2026-04-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25086110,1.034352,2026-05-11 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25087594,1.034402,2026-05-12 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25087607,1.034402,2026-05-12 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25087756,1.034402,2026-05-12 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25087889,1.034402,2026-05-12 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25122482,1.034926,2026-05-15 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25238320,1.036561,2026-06-02 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25243903,1.036579,2026-06-03 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25339132,1.037925,2026-06-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25339154,1.037925,2026-06-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25344382,1.038197,2026-06-17 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25424713,1.039122,2026-06-26 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25438906,1.03953,2026-06-30 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25439214,1.03953,2026-06-30 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25474177,1.04022,2026-07-02 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25488917,1.040487,2026-07-07 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25505191,1.040586,2026-07-09 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25525289,1.040924,2026-07-10 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25537682,1.040903,2026-07-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25546396,1.04114,2026-07-15 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25574109,1.041433,2026-07-17 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25582295,1.041654,2026-07-20 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25589709,1.041714,2026-07-21 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25594749,1.041846,2026-07-22 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25624829,1.04244,2026-07-24 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25631036,1.042543,2026-07-27 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25639863,1.042619,2026-07-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25675016,1.043331,2026-07-31 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25681114,1.043455,2026-08-03 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25688564,1.043671,2026-08-04 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25773115,1.045109,2026-08-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25795483,1.04576,2026-08-18 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25826826,1.04639,2026-08-21 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25831072,1.04639,2026-08-21 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25897843,1.047726,2026-09-01 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25947220,1.048849,2026-09-08 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,25953043,1.048981,2026-09-09 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26091751,1.050274,2026-09-29 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26126789,1.05085,2026-10-02 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26192239,1.052185,2026-10-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26192348,1.052185,2026-10-13 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26227875,1.052827,2026-10-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26227880,1.052827,2026-10-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26227916,1.052827,2026-10-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26227933,1.052827,2026-10-16 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26241457,1.052886,2026-10-20 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26249328,1.053179,2026-10-21 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26277606,1.053739,2026-10-23 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26282888,1.053872,2026-10-26 23:17:16+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26282906,1.053872,2026-10-26 23:17:16+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26297483,1.054005,2026-10-27 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26299181,1.054139,2026-10-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26301900,1.054139,2026-10-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26303088,1.054139,2026-10-28 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26377565,1.055506,2026-11-05 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26378948,1.05584,2026-11-06 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26384866,1.05584,2026-11-06 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26391019,1.055935,2026-11-09 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26398921,1.056042,2026-11-10 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26399645,1.056042,2026-11-10 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26401229,1.056177,2026-11-11 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26406126,1.056427,2026-11-12 12:00:00+00:00
+ethereum,jaaa_usdc_vault_price_per_share,26435120,1.056891,2026-11-13 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25402441,1.038693,2026-06-25 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25522448,1.040586,2026-07-09 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25582572,1.041654,2026-07-20 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25583521,1.041654,2026-07-20 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25780638,1.04552,2026-08-14 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,25780828,1.04552,2026-08-14 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,26106827,1.050448,2026-10-01 12:00:00+00:00
+ethereum,jaaa_usdt_vault_price_per_share,26236785,1.052831,2026-10-19 12:00:00+00:00
+ethereum,jaaa_usdc_v2_vault_price_per_share,22783204,1.0,2025-05-14 15:35:00+00:00
+ethereum,jaaa_usdc_v2_vault_price_per_share,23081844,1.000892,2025-07-31 16:31:36+00:00

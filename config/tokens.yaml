@@ -7,7 +7,8 @@
 #   contracts        role -> contract or list of contracts {name, address, abi, from_block, price_sources, params}
 #                    (roles are protocol-specific; address defaults to the token address; abi = file in abis/ w/o .json)
 #   price_sources    ordered fallback list used to value each redemption at its block:
-#                      rpc_call  - archive eth_call of a view (default Chainlink latestRoundData) at the event block
+#                      rpc_call  - archive eth_call of a view (default Chainlink latestRoundData) at the event block;
+#                                  timestamp_fn = optional second view for the update time (e.g. priceLastUpdated)
 #                      http_nav  - daily NAV from an HTTP JSON API, as-of the event's UTC date
 #                      constant  - fixed price
 #                    if none can price an event, the earliest later price is used and the row is flagged price_is_backfilled
@@ -318,3 +319,94 @@ tokens:
         fn: lastSetMintExchangeRate
         decimals: 18
         from_block: 16735625
+
+  # ---------------------------------------------------------------- Centrifuge
+  # Roles: vaults  ERC-7540 vaults of the share token (one per payout asset and protocol version);
+  #                params.token_out = vault asset(); price_sources = that vault's pricePerShare()
+  #        token   share token; its VaultUpdate events list every vault ever linked (unlinked-but-unconfigured
+  #                vaults are reported in checks.unconfigured_vaults)
+  # Redemption is always async (requestRedeem -> hub epoch -> claim with withdraw/redeem); there is no instant path.
+  #
+  # JAAA: Janus Henderson Anemoy AAA CLO Fund. Pool 281474976710663, share class 0x00010000000000070000000000000001.
+  # The share token is the Centrifuge v2 Tranche contract, reused by v3. Not collected (docs/notes/jaaa-redemptions.md):
+  # manual BalanceSheet revokes by a pool manager (no vault event) and crosschain share transfers (not redemptions).
+  - symbol: JAAA
+    protocol: centrifuge
+    chain: ethereum
+    address: "0x5a0F93D040De44e78F251b03c43be9CF317Dcf64"
+    decimals: 6
+    start_block: 22297839  # token deploy
+    contracts:
+      token:
+        abi: centrifuge/ShareToken
+        params:
+          not_collected: "Manual BalanceSheet revokes: a pool manager pulls a holder's JAAA and burns it without a vault event (6 so far, 160.7M JAAA); likely off-chain-settled redemptions, undocumented"
+      vaults:
+        - name: usdc_v2  # Centrifuge v2 ERC7540Vault; linked 22297843-22982600 and 23015872-23382941
+          address: "0xE9d1f733F406D4bbbDFac6D4CfCD2e13A6ee1d01"
+          abi: centrifuge/AsyncVault
+          from_block: 22297843
+          params: { token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # USDC
+          price_sources:
+            - type: rpc_call
+              name: jaaa_usdc_v2_vault_price_per_share
+              address: "0xE9d1f733F406D4bbbDFac6D4CfCD2e13A6ee1d01"
+              abi: centrifuge/AsyncVault
+              fn: pricePerShare
+              timestamp_fn: priceLastUpdated
+              decimals: 6
+        - name: usdc  # v3 AsyncVault; the same address for v3.0 and v3.1 (manager re-filed at 24376326)
+          address: "0x4880799eE5200fC58DA299e965df644fBf46780B"
+          abi: centrifuge/AsyncVault
+          from_block: 22982600
+          params: { token_out: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }  # USDC
+        - name: usdt
+          address: "0x4a76FB02421b1D38AaA40dB541F59B2CB04b0770"
+          abi: centrifuge/AsyncVault
+          from_block: 25350680
+          params: { token_out: "0xdac17f958d2ee523a2206206994597c13d831ec7" }  # USDT
+          price_sources:
+            - type: rpc_call
+              name: jaaa_usdt_vault_price_per_share
+              address: "0x4a76FB02421b1D38AaA40dB541F59B2CB04b0770"
+              abi: centrifuge/AsyncVault
+              fn: pricePerShare
+              timestamp_fn: priceLastUpdated
+              decimals: 6
+        - name: ausd
+          address: "0x3148910f61C761A8Ea939c5d6ab88e5265b71106"
+          abi: centrifuge/AsyncVault
+          from_block: 25351412
+          params: { token_out: "0x00000000efe302beaa2b3e6e1b18d08d69a9012a" }  # AUSD
+          price_sources:
+            - type: rpc_call
+              name: jaaa_ausd_vault_price_per_share
+              address: "0x3148910f61C761A8Ea939c5d6ab88e5265b71106"
+              abi: centrifuge/AsyncVault
+              fn: pricePerShare
+              timestamp_fn: priceLastUpdated
+              decimals: 6
+        - name: usat
+          address: "0x13470dbaaafddbf1a0d9048ddcafd6dd82e14372"
+          abi: centrifuge/AsyncVault
+          from_block: 25839861
+          params: { token_out: "0x07041776f5007aca2a54844f50503a18a72a8b68" }  # USAT
+          price_sources:
+            - type: rpc_call
+              name: jaaa_usat_vault_price_per_share
+              address: "0x13470dbaaafddbf1a0d9048ddcafd6dd82e14372"
+              abi: centrifuge/AsyncVault
+              fn: pricePerShare
+              timestamp_fn: priceLastUpdated
+              decimals: 6
+    price_sources:
+      # Default (the usdc vault): vault.pricePerShare() = convertToAssets(1 share) in USDC (6 dp), from the last share
+      # and asset prices pushed by the hub; read at the event block (archive eth_call). Valued as USD: every vault
+      # asset is a USD stablecoin with a fixed 1.0 price in chains.yaml.
+      - type: rpc_call
+        name: jaaa_usdc_vault_price_per_share
+        address: "0x4880799eE5200fC58DA299e965df644fBf46780B"
+        abi: centrifuge/AsyncVault
+        fn: pricePerShare
+        timestamp_fn: priceLastUpdated
+        decimals: 6

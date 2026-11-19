@@ -85,3 +85,33 @@ def test_http_nav_as_of_event_date():
     out = src.lookup(pd.Series([1, 2, 3]), ts)
     assert math.isnan(out["price"][0])
     assert list(out["price"][1:]) == [10.05, 10.10]
+
+
+def test_rpc_call_source_timestamp_fn(abis, tmp_path):
+    """Centrifuge vault: price from pricePerShare(), update time from a second view, priceLastUpdated()."""
+    vault = "0x" + "c" * 40
+    pps = abis.function("centrifuge/AsyncVault", "pricePerShare")
+    plu = abis.function("centrifuge/AsyncVault", "priceLastUpdated")
+
+    class VaultRpc:
+        def __init__(self):
+            self.calls = []
+
+        def eth_call(self, to, data, block):
+            self.calls.append((data, block))
+            if data == pps.encode():
+                return eth_abi.encode(["uint256"], [1_057_215])
+            return eth_abi.encode(["uint64"], [1_795_003_200]) if data == plu.encode() else None
+
+        def map(self, fn, items):
+            return [fn(x) for x in items]
+
+    rpc = VaultRpc()
+    cfg = RpcCallSourceConfig(
+        type="rpc_call", address=vault, abi="centrifuge/AsyncVault", fn="pricePerShare",
+        timestamp_fn="priceLastUpdated", decimals=6,
+    )
+    ctx = PricingContext("ethereum", rpc, abis, httpx.Client(), tmp_path)  # type: ignore[arg-type]
+    out = RpcCallPriceSource.from_config(cfg, ctx).lookup(pd.Series([7]), pd.Series([0]))
+    assert out["price"][0] == 1.057215 and out["price_timestamp"][0] == 1_795_003_200
+    assert [b for _, b in rpc.calls] == [7, 7]  # both views at the event block

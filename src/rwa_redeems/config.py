@@ -56,6 +56,7 @@ class RpcCallSourceConfig(_Model):
     fn: str = "latestRoundData"
     output: str | None = None  # output field holding the price; default "answer", else the first output
     timestamp_output: str | None = None  # output field holding the update time; default "updatedAt" if present
+    timestamp_fn: str | None = None  # second view on the same contract returning the update time (priceLastUpdated)
     decimals: int
     from_block: int | None = None  # skip calls before this block (feed not deployed yet)
 

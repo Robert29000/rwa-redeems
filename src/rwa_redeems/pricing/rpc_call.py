@@ -19,12 +19,20 @@ log = logging.getLogger(__name__)
 
 @register("rpc_call")
 class RpcCallPriceSource(PriceSource):
-    def __init__(self, cfg: RpcCallSourceConfig, rpc: RpcClient, fn: FunctionSpec, cache: JsonlKV):
+    def __init__(
+        self,
+        cfg: RpcCallSourceConfig,
+        rpc: RpcClient,
+        fn: FunctionSpec,
+        cache: JsonlKV,
+        ts_fn: FunctionSpec | None = None,
+    ):
         super().__init__(cfg.label)
         self.cfg = cfg
         self._rpc = rpc
         self._fn = fn
         self._calldata = fn.encode()
+        self._ts_fn = ts_fn
         self._cache = cache
         names = fn.output_names
         self._price_field = cfg.output or ("answer" if "answer" in names else names[0])
@@ -36,8 +44,10 @@ class RpcCallPriceSource(PriceSource):
     @classmethod
     def from_config(cls, cfg: RpcCallSourceConfig, ctx: PricingContext) -> RpcCallPriceSource:
         fn = ctx.abis.function(cfg.abi, cfg.fn)
-        cache = JsonlKV(ctx.cache_dir / ctx.chain_key / f"{cfg.address}_{cfg.fn}.jsonl")
-        return cls(cfg, ctx.rpc, fn, cache)
+        ts_fn = ctx.abis.function(cfg.abi, cfg.timestamp_fn) if cfg.timestamp_fn else None
+        suffix = f"_{cfg.timestamp_fn}" if cfg.timestamp_fn else ""
+        cache = JsonlKV(ctx.cache_dir / ctx.chain_key / f"{cfg.address}_{cfg.fn}{suffix}.jsonl")
+        return cls(cfg, ctx.rpc, fn, cache, ts_fn)
 
     def _call(self, block: int) -> dict | None:
         data = self._rpc.eth_call(self.cfg.address, self._calldata, block)
@@ -48,7 +58,11 @@ class RpcCallPriceSource(PriceSource):
         except Exception:  # unexpected return shape (e.g. proxy not initialised yet)
             log.warning("%s: undecodable return at block %d", self.label, block)
             return None
-        return {"raw": str(out[self._price_field]), "ts": out.get(self._ts_field) if self._ts_field else None}
+        ts = out.get(self._ts_field) if self._ts_field else None
+        if self._ts_fn is not None:
+            ts_data = self._rpc.eth_call(self.cfg.address, self._ts_fn.encode(), block)
+            ts = self._ts_fn.decode(ts_data)[self._ts_fn.output_names[0]] if ts_data else None
+        return {"raw": str(out[self._price_field]), "ts": ts}
 
     def _value(self, block: int) -> tuple[float, float]:
         rec = self._cache.get(str(block))
